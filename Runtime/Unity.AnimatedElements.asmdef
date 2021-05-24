@@ -1,0 +1,19 @@
+{
+    "name": "AnimatedElements",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.chuvi.animatedelements",
+            "expression": "1.0.0",
+            "define": "ANIMATED_ELEMENTS"
+        }
+    ],
+    "noEngineReferences": false
+}
