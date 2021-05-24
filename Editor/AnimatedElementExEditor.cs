@@ -42,7 +42,7 @@ public class AnimatedElementExEditor : Editor
     void CommonInit()
     {
         Pause = serializedObject.FindProperty("Pause");
-        commonTransform = serializedObject.FindProperty("commonTransform");
+        commonTransform = serializedObject.FindProperty("m_commonTransform");
         TimeWait = serializedObject.FindProperty("TimeWait");
         IsRandomTimeWait = serializedObject.FindProperty("IsRandomTimeWait");
         MaxRandomTimeWait = serializedObject.FindProperty("MaxRandomTimeWait");
