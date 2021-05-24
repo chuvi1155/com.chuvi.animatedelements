@@ -91,11 +91,11 @@ public class AnimatedElementExEditor : Editor
         showMaterialSettings = EditorPrefs.GetBool("AnimatedElementEx_showMaterialSettings", false);
 
         string editorPath = GetPackageRelativePath();
-        if (pauseIcon == null) pauseIcon = AssetDatabase.LoadAssetAtPath<Texture>(editorPath + "/Icons/pause-icon.png");
-        if (randomIcon == null) randomIcon = AssetDatabase.LoadAssetAtPath<Texture>(editorPath + "/Icons/random-icon.png");
-        if (waitIcon == null) waitIcon = AssetDatabase.LoadAssetAtPath<Texture>(editorPath + "/Icons/wait-icon.png");
-        if (repeateIcon == null) repeateIcon = AssetDatabase.LoadAssetAtPath<Texture>(editorPath + "/Icons/repeate-icon.png");
-        if (usedIcon == null) usedIcon = AssetDatabase.LoadAssetAtPath<Texture>(editorPath + "/Icons/used-icon.png");
+        if (pauseIcon == null) pauseIcon = AssetDatabase.LoadAssetAtPath<Texture>(editorPath + "/Editor/Icons/pause-icon.png");
+        if (randomIcon == null) randomIcon = AssetDatabase.LoadAssetAtPath<Texture>(editorPath + "/Editor/Icons/random-icon.png");
+        if (waitIcon == null) waitIcon = AssetDatabase.LoadAssetAtPath<Texture>(editorPath + "/Editor/Icons/wait-icon.png");
+        if (repeateIcon == null) repeateIcon = AssetDatabase.LoadAssetAtPath<Texture>(editorPath + "/Editor/Icons/repeate-icon.png");
+        if (usedIcon == null) usedIcon = AssetDatabase.LoadAssetAtPath<Texture>(editorPath + "/Editor/Icons/used-icon.png");
 
         CommonInit();
         AnimatedComponentsInit();
