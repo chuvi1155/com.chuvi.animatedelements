@@ -1,9 +1,11 @@
 {
-    "name": "Editor.AnimatedElements",
+    "name": "Unity.AnimatedElements.Editor",
     "references": [
         "GUID:8c5b8ec4a47d5dd4c8fd0f4c18708392"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
