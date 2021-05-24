@@ -189,6 +189,7 @@ public class AnimatedElementEx : MonoBehaviour
 
     public void Play()
     {
+        InitFields();
         OnEnableEvent.Invoke();
         t = 0;
         isStartEventRun = false;
