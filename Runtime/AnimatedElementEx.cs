@@ -43,6 +43,10 @@ public class AnimatedElementEx : MonoBehaviour
                 m_commonTransform = transform;
             return m_commonTransform;
         }
+        set
+        {
+            m_commonTransform = value;
+        }
     }
     public bool IsAnimated
     {
