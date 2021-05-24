@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -8,51 +8,55 @@ using UnityEditor;
 public class AnimatedElementEx : MonoBehaviour
 {
     public bool Pause;
-    public Transform commonTransform;
+    [SerializeField] Transform m_commonTransform;
     public float TimeWait = 0;
     public bool IsRandomTimeWait = false;
     public float MaxRandomTimeWait = 0;
 
+
+
+    bool isStartEventRun = false;
+    bool isEndEventRun = false;
+    float t = 0;
+
+
+    [Space]
+    public AnimatedTransform transformation;
+    public AnimatedRotation rotation;
+    public AnimatedScale scale;
+    public AnimatedColor color;
+    public AnimatedSequence sequence;
+    public AnimatedAction actions;
+    public AnimatedMaterial material;
 
     public UnityEngine.Events.UnityEvent StartAnimations;
     public UnityEngine.Events.UnityEvent EndAnimations;
 
     public UnityEngine.Events.UnityEvent OnEnableEvent;
     public UnityEngine.Events.UnityEvent OnDisableEvent;
-    bool isStartEventRun = false;
-    bool isEndEventRun = false;
-    float t = 0;
 
+    public Transform commonTransform
+    {
+        get
+        {
+            if (m_commonTransform == null)
+                m_commonTransform = transform;
+            return m_commonTransform;
+        }
+    }
     public bool IsAnimated
     {
         get
         {
-            return transformation.HasAnimated || 
-                   rotation.HasAnimated || 
-                   scale.HasAnimated || 
-                   color.HasAnimated || 
-                   sequence.HasAnimated || 
-                   actions.HasAnimated || 
+            return transformation.HasAnimated ||
+                   rotation.HasAnimated ||
+                   scale.HasAnimated ||
+                   color.HasAnimated ||
+                   sequence.HasAnimated ||
+                   actions.HasAnimated ||
                    material.HasAnimated;
         }
     }
-
-    [Space]
-    [SerializeField]
-    public AnimatedTransform transformation;
-    [SerializeField]
-    public AnimatedRotation rotation;
-    [SerializeField]
-    public AnimatedScale scale;
-    [SerializeField]
-    public AnimatedColor color;
-    [SerializeField]
-    public AnimatedSequence sequence;
-    [SerializeField]
-    public AnimatedAction actions;
-    [SerializeField]
-    public AnimatedMaterial material;
-
 #if UNITY_EDITOR
     bool isEmulateInEditor = false;
     double dt;
@@ -65,9 +69,6 @@ public class AnimatedElementEx : MonoBehaviour
             if (isEmulateInEditor)
             {
                 dt = EditorApplication.timeSinceStartup;
-
-                if (commonTransform == null)
-                    commonTransform = transform;
 
                 if (transformation.mainTransform == null)
                     transformation.mainTransform = commonTransform;
@@ -109,10 +110,7 @@ public class AnimatedElementEx : MonoBehaviour
 #endif
 
     private void Start()
-    {
-        if (commonTransform == null)
-            commonTransform = transform;
-        
+    {        
         if (transformation.mainTransform == null)
             transformation.mainTransform = commonTransform;
         if (rotation.mainTransform == null)
@@ -165,6 +163,26 @@ public class AnimatedElementEx : MonoBehaviour
         Play();
     }
 
+    void InitFields()
+    {
+        if (transformation == null || OnEnableEvent == null)
+        {
+            transformation = new AnimatedTransform(commonTransform);
+            rotation = new AnimatedRotation(commonTransform);
+            scale = new AnimatedScale(commonTransform);
+            color = new AnimatedColor(commonTransform);
+            sequence = new AnimatedSequence(commonTransform);
+            actions = new AnimatedAction(commonTransform);
+            material = new AnimatedMaterial(commonTransform);
+
+            StartAnimations = new UnityEngine.Events.UnityEvent();
+            EndAnimations = new UnityEngine.Events.UnityEvent();
+
+            OnEnableEvent = new UnityEngine.Events.UnityEvent();
+            OnDisableEvent = new UnityEngine.Events.UnityEvent(); 
+        }
+    }
+
     public void Play()
     {
         OnEnableEvent.Invoke();
@@ -173,9 +191,6 @@ public class AnimatedElementEx : MonoBehaviour
         isEndEventRun = false;
         if (IsRandomTimeWait)
             TimeWait = Random.Range(0.0f, this.MaxRandomTimeWait);
-
-        if (commonTransform == null)
-            commonTransform = transform;
 
         if (transformation.mainTransform == null)
             transformation.mainTransform = commonTransform;
@@ -222,8 +237,6 @@ public class AnimatedElementEx : MonoBehaviour
             StartAnimations.Invoke();
         }
 
-        if (commonTransform == null)
-            commonTransform = transform;
         if (transformation.mainTransform == null)
             transformation.mainTransform = commonTransform;
         if (rotation.mainTransform == null)
