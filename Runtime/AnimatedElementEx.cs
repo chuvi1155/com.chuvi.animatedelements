@@ -114,21 +114,8 @@ public class AnimatedElementEx : MonoBehaviour
 #endif
 
     private void Start()
-    {        
-        if (transformation.mainTransform == null)
-            transformation.mainTransform = commonTransform;
-        if (rotation.mainTransform == null)
-            rotation.mainTransform = commonTransform;
-        if (scale.mainTransform == null)
-            scale.mainTransform = commonTransform;
-        if (color.mainTransform == null)
-            color.mainTransform = commonTransform;
-        if (sequence.mainTransform == null)
-            sequence.mainTransform = commonTransform;
-        if (actions.mainTransform == null)
-            actions.mainTransform = commonTransform;
-        if (material.mainTransform == null)
-            material.mainTransform = commonTransform;
+    {
+        InitCommonTransform();
     }
 
 #if UNITY_EDITOR
@@ -141,6 +128,7 @@ public class AnimatedElementEx : MonoBehaviour
     [ContextMenu("ResetToEnd")]
     public void ResetInToState()
     {
+        InitFields();
         transformation.ResetInToState();
         rotation.ResetInToState();
         scale.ResetInToState();
@@ -153,6 +141,7 @@ public class AnimatedElementEx : MonoBehaviour
     [ContextMenu("ResetToStart")]
     public void ResetInFromState()
     {
+        InitFields();
         transformation.ResetInFromState();
         rotation.ResetInFromState();
         scale.ResetInFromState();
@@ -167,7 +156,7 @@ public class AnimatedElementEx : MonoBehaviour
         Play();
     }
 
-    void InitFields()
+    bool InitFields()
     {
         if (transformation == null || OnEnableEvent == null)
         {
@@ -183,8 +172,29 @@ public class AnimatedElementEx : MonoBehaviour
             EndAnimations = new UnityEngine.Events.UnityEvent();
 
             OnEnableEvent = new UnityEngine.Events.UnityEvent();
-            OnDisableEvent = new UnityEngine.Events.UnityEvent(); 
+            OnDisableEvent = new UnityEngine.Events.UnityEvent();
+            return true;
         }
+        else InitCommonTransform();
+        return false;
+    }
+
+    void InitCommonTransform()
+    {
+        if (transformation.mainTransform == null)
+            transformation.mainTransform = commonTransform;
+        if (rotation.mainTransform == null)
+            rotation.mainTransform = commonTransform;
+        if (scale.mainTransform == null)
+            scale.mainTransform = commonTransform;
+        if (color.mainTransform == null)
+            color.mainTransform = commonTransform;
+        if (sequence.mainTransform == null)
+            sequence.mainTransform = commonTransform;
+        if (actions.mainTransform == null)
+            actions.mainTransform = commonTransform;
+        if (material.mainTransform == null)
+            material.mainTransform = commonTransform;
     }
 
     public void Play()
