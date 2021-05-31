@@ -112,9 +112,6 @@ public abstract class AnimatedBehaviour
 
     public virtual void InitTransform()
     {
-        if (_mainTransform != null)
-            rtr = _mainTransform.GetComponent<RectTransform>();
-        else rtr = null;
     }
 
     public void Update(float deltaTime)
