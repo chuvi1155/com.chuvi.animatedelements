@@ -12,7 +12,21 @@ public abstract class AnimatedBehaviour
     public bool IsWaiting { get; private set; }
 
     [SerializeField]
-    public RectTransform rtr { get; private set; }
+    protected RectTransform _rtr;
+
+    public RectTransform rtr 
+    {
+        get 
+        {
+            if (_rtr == null)
+            {
+                if (_mainTransform != null)
+                    _rtr = _mainTransform.GetComponent<RectTransform>();
+                else _rtr = null; 
+            }
+            return _rtr;
+        }
+    }
     protected abstract object GetFrom();
     protected abstract void SetFrom(object from);
     protected abstract object GetTo();
