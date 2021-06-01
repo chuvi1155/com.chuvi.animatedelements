@@ -328,4 +328,9 @@ public class AnimatedElementEx : MonoBehaviour
     {
         material.ReverseCurve();
     }
+
+    public void CommonTransformSelfDestroy()
+    {
+        Destroy(commonTransform.gameObject);
+    }
 }
