@@ -118,12 +118,19 @@ public class AnimatedElementEx : MonoBehaviour
         InitCommonTransform();
     }
 
-#if UNITY_EDITOR
     private void OnDestroy()
     {
+#if UNITY_EDITOR
         IsEmulateInEditor = false;
-    }
 #endif
+        transformation.Dispose();
+        rotation.Dispose();
+        scale.Dispose();
+        color.Dispose();
+        sequence.Dispose();
+        actions.Dispose();
+        material.Dispose();
+    }
 
     [ContextMenu("ResetToEnd")]
     public void ResetInToState()
