@@ -224,4 +224,7 @@ public abstract class AnimatedBehaviour
     {
         return new Vector3(from.x + (to.x - from.x) * t, from.y + (to.y - from.y) * t, from.z + (to.z - from.z) * t);
     }
+
+    public virtual void Dispose()
+    { }
 }
