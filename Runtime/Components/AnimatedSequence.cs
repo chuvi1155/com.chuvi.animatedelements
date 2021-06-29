@@ -18,6 +18,7 @@ public class AnimatedSequence : AnimatedBehaviour
     public Image image;
     public SpriteRenderer sprite;
     public Sprite[] frameAnimation;
+
     public bool PlayRaw = false;
     public string RawFileName;
     byte[] rawData = null;
@@ -43,18 +44,7 @@ public class AnimatedSequence : AnimatedBehaviour
         InitTransform();
         if (PlayRaw)
         {
-            rawData = File.ReadAllBytes(RawFileName);
-            countRawFrame = BitConverter.ToInt32(rawData, 0);
-            int w = BitConverter.ToInt32(rawData, 4);
-            int h = BitConverter.ToInt32(rawData, 8);
-            rawTex = new Texture2D(w, h);
-            if (image != null || sprite != null) 
-                rawSprite = Sprite.Create(rawTex, new Rect(0, 0, w, h), new Vector2(0.5f, 0.5f));
-            List<byte> list = new List<byte>(rawData);
-            list.RemoveRange(0, 12);
-            rawData = list.ToArray();
-            ms = new MemoryStream(rawData);
-            reader = new BinaryReader(ms);
+            InitRawData();
         }
         if (frameAnimation == null || frameAnimation.Length == 0) return;
         if (image != null) image.sprite = frameAnimation[0];
@@ -111,7 +101,7 @@ public class AnimatedSequence : AnimatedBehaviour
         if (Exists(SequenceTypes.Image) && image == null) image = mainTransform.GetComponent<Image>();
         if (Exists(SequenceTypes.Sprite) && sprite == null) sprite = mainTransform.GetComponent<SpriteRenderer>();
         if (image == null && sprite == null) return;
-        if ((PlayRaw && rawData == null) || frameAnimation == null || frameAnimation.Length == 0) return;
+        if ((PlayRaw && rawData == null) || (!PlayRaw && (frameAnimation == null || frameAnimation.Length == 0))) return;
         if (PlayRaw)
         {
             int num = (int)(_time * (countRawFrame));
