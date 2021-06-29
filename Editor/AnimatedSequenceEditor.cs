@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,10 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
     SerializedProperty image;
     SerializedProperty sprite;
     SerializedProperty frameAnimation;
+    // raw
+    SerializedProperty PlayRaw;
+    SerializedProperty RawFileName;
+
     protected override bool CanRevert { get { return false; } }
 
     public AnimatedSequenceEditor(AnimatedElementExEditor _ae) : base(_ae, "sequence")
@@ -24,6 +28,9 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
         image = sp.FindPropertyRelative("image");
         sprite = sp.FindPropertyRelative("sprite");
         frameAnimation = sp.FindPropertyRelative("frameAnimation");
+
+        PlayRaw = sp.FindPropertyRelative("PlayRaw");
+        RawFileName = sp.FindPropertyRelative("RawFileName");
     }
 
     protected override void DrawBefore()
@@ -53,6 +60,11 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
             EditorGUILayout.EndHorizontal();
             
             EditorGUI.indentLevel++;
+
+            EditorGUILayout.PropertyField(PlayRaw, new GUIContent("PlayRaw"), true);
+            EditorGUILayout.PropertyField(RawFileName, new GUIContent("RawFileName"), true);
+            
+
             if (ae.sequence.frameAnimation == null)
                 ae.sequence.frameAnimation = new Sprite[0];
             if (!frameAnimation.hasMultipleDifferentValues)
