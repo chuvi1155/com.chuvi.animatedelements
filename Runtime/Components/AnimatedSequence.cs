@@ -66,24 +66,35 @@ public class AnimatedSequence : AnimatedBehaviour
         if (sprite != null) sprite.sprite = frameAnimation[frameAnimation.Length - 1];
     }
 
-    protected void InitRawData()
+    public void InitRawData(bool force = false)
     {
-        rawData = File.ReadAllBytes(RawFileName);
-        countRawFrame = BitConverter.ToInt32(rawData, 0);
-        int w = BitConverter.ToInt32(rawData, 4);
-        int h = BitConverter.ToInt32(rawData, 8);
-        rawTex = new Texture2D(w, h);
-        if (image != null || sprite != null)
-            rawSprite = Sprite.Create(rawTex, new Rect(0, 0, w, h), new Vector2(0.5f, 0.5f));
-        List<byte> list = new List<byte>(rawData);
-        list.RemoveRange(0, 12);
-        rawData = list.ToArray();
-        if (reader != null)
-            reader.Dispose();
-        if (ms != null)
-            ms.Dispose();
-        ms = new MemoryStream(rawData);
-        reader = new BinaryReader(ms);
+        if (rawData == null || force)
+        {
+            rawData = File.ReadAllBytes(RawFileName);
+            if (rawData.Length > 12)
+            {
+                countRawFrame = BitConverter.ToInt32(rawData, 0);
+                int w = BitConverter.ToInt32(rawData, 4);
+                int h = BitConverter.ToInt32(rawData, 8);
+                rawTex = new Texture2D(w, h, TextureFormat.RGB24, false);
+                if (image != null || sprite != null)
+                    rawSprite = Sprite.Create(rawTex, new Rect(0, 0, w, h), new Vector2(0.5f, 0.5f));
+                List<byte> list = new List<byte>(rawData);
+                list.RemoveRange(0, 12);
+                rawData = list.ToArray();
+                if (reader != null)
+                    reader.Dispose();
+                if (ms != null)
+                    ms.Dispose();
+                ms = new MemoryStream(rawData);
+                reader = new BinaryReader(ms);
+
+                if (Exists(SequenceTypes.Image) && image == null) image = mainTransform.GetComponent<Image>();
+                if (Exists(SequenceTypes.Sprite) && sprite == null) sprite = mainTransform.GetComponent<SpriteRenderer>();
+                if (Exists(SequenceTypes.Image) && image != null) image.sprite = rawSprite;
+                if (Exists(SequenceTypes.Sprite) && sprite != null) sprite.sprite = rawSprite;
+            } 
+        }
     }
 
     protected override object GetFrom()
@@ -143,6 +154,7 @@ public class AnimatedSequence : AnimatedBehaviour
 
     public override void Dispose()
     {
+        rawData = null;
         if (reader != null)
             reader.Dispose();
         if (ms != null)
