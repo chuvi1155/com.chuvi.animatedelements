@@ -1,20 +1,27 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System;
 
 public class AnimatedActionsEditor : AnimatedBehaviourEditor
 {
     SerializedProperty act_types;
+
     SerializedProperty ClampedAction;
+    SerializedProperty ToStringClampedAction;
     SerializedProperty InvertClampedAction;
+    SerializedProperty ToStringInvertClampedAction;
     SerializedProperty CustomValueAction;
+    SerializedProperty ToStringCustomValueAction;
     SerializedProperty CurvedValueAction;
+    SerializedProperty ToStringCurvedValueAction;
+    SerializedProperty CustomRangeValueAction;
+    SerializedProperty ToStringCustomRangeValueAction;
+
     SerializedProperty MaxCustomValue;
     SerializedProperty CustomActionReversed;
-    SerializedProperty CustomRangeValueAction;
     SerializedProperty FromCustomRangeValue;
     SerializedProperty ToCustomRangeValue;
-    SerializedProperty ToStringValueAction;
+    //SerializedProperty ToStringValueAction;
     SerializedProperty ToStringEvent;
     SerializedProperty AsIntValue;
 
@@ -31,13 +38,19 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
         InvertClampedAction = sp.FindPropertyRelative("InvertClampedAction");
         CustomValueAction = sp.FindPropertyRelative("CustomValueAction");
         CurvedValueAction = sp.FindPropertyRelative("CurvedValueAction");
+        CustomRangeValueAction = sp.FindPropertyRelative("CustomRangeValueAction");
+
+        ToStringClampedAction = sp.FindPropertyRelative("ToStringClampedAction");
+        ToStringInvertClampedAction = sp.FindPropertyRelative("ToStringInvertClampedAction");
+        ToStringCustomValueAction = sp.FindPropertyRelative("ToStringCustomValueAction");
+        ToStringCurvedValueAction = sp.FindPropertyRelative("ToStringCurvedValueAction");
+        ToStringCustomRangeValueAction = sp.FindPropertyRelative("ToStringCustomRangeValueAction");
+
         MaxCustomValue = sp.FindPropertyRelative("MaxCustomValue");
         CustomActionReversed = sp.FindPropertyRelative("CustomActionReversed");
-        CustomRangeValueAction = sp.FindPropertyRelative("CustomRangeValueAction");
         FromCustomRangeValue = sp.FindPropertyRelative("FromCustomRangeValue");
         ToCustomRangeValue = sp.FindPropertyRelative("ToCustomRangeValue");
-		ToStringValueAction = sp.FindPropertyRelative("ToStringValueAction");
-        ToStringEvent = sp.FindPropertyRelative("ToStringEvent");
+        //ToStringEvent = sp.FindPropertyRelative("ToStringEvent");
         AsIntValue = sp.FindPropertyRelative("AsIntValue");
     }
     public override void RevertStates()
@@ -75,7 +88,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
 
                 EditorGUILayout.PropertyField(ClampedAction, new GUIContent("Clamped action"));
                 if (ToStringEvent.boolValue)
-                    EditorGUILayout.PropertyField(ToStringValueAction, new GUIContent("ToStringValueAction"));
+                    EditorGUILayout.PropertyField(ToStringClampedAction, new GUIContent("ToString"));
             }
             if (Exists(AnimatedAction.ActionTypes.InvertClampedAction))
             {
@@ -87,7 +100,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
 
                 EditorGUILayout.PropertyField(InvertClampedAction, new GUIContent("Invert clamped value action"));
                 if(ToStringEvent.boolValue)
-                    EditorGUILayout.PropertyField(ToStringValueAction, new GUIContent("ToStringValueAction"));
+                    EditorGUILayout.PropertyField(ToStringInvertClampedAction, new GUIContent("ToString"));
             }
             if (Exists(AnimatedAction.ActionTypes.CurvedValueAction))
             {
@@ -101,7 +114,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
 
                 EditorGUILayout.PropertyField(CurvedValueAction, new GUIContent("Curved value action"));
                 if (ToStringEvent.boolValue)
-                    EditorGUILayout.PropertyField(ToStringValueAction, new GUIContent("ToStringValueAction"));
+                    EditorGUILayout.PropertyField(ToStringCurvedValueAction, new GUIContent("ToString"));
             }
             if (Exists(AnimatedAction.ActionTypes.CustomValueAction))
             {
@@ -117,7 +130,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
 
                 EditorGUILayout.PropertyField(CustomValueAction, new GUIContent("Custom value action"));
                 if (ToStringEvent.boolValue)
-                    EditorGUILayout.PropertyField(ToStringValueAction, new GUIContent("ToStringValueAction"));
+                    EditorGUILayout.PropertyField(ToStringCustomValueAction, new GUIContent("ToString"));
                 EditorGUILayout.EndVertical();
             }
             if (Exists(AnimatedAction.ActionTypes.CustomValueRangeAction))
@@ -134,7 +147,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
 
                 EditorGUILayout.PropertyField(CustomRangeValueAction, new GUIContent("Custom range value action"));
                 if (ToStringEvent.boolValue)
-                    EditorGUILayout.PropertyField(ToStringValueAction, new GUIContent("ToStringValueAction"));
+                    EditorGUILayout.PropertyField(ToStringCustomRangeValueAction, new GUIContent("ToString"));
                 EditorGUILayout.EndVertical();
             }
         }
