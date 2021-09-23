@@ -50,7 +50,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
         CustomActionReversed = sp.FindPropertyRelative("CustomActionReversed");
         FromCustomRangeValue = sp.FindPropertyRelative("FromCustomRangeValue");
         ToCustomRangeValue = sp.FindPropertyRelative("ToCustomRangeValue");
-        //ToStringEvent = sp.FindPropertyRelative("ToStringEvent");
+        ToStringEvent = sp.FindPropertyRelative("ToStringEvent");
         AsIntValue = sp.FindPropertyRelative("AsIntValue");
     }
     public override void RevertStates()
