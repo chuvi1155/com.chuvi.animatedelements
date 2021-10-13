@@ -13,6 +13,8 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
     // raw
     SerializedProperty PlayRaw;
     SerializedProperty RawFileName;
+    SerializedProperty FPS;
+    SerializedProperty UseFPS;
 
     protected override bool CanRevert { get { return false; } }
 
@@ -31,6 +33,9 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
 
         PlayRaw = sp.FindPropertyRelative("PlayRaw");
         RawFileName = sp.FindPropertyRelative("RawFileName");
+
+        UseFPS = sp.FindPropertyRelative("UseFPS");
+        FPS = sp.FindPropertyRelative("FPS");
     }
 
     protected override void DrawBefore()
@@ -69,6 +74,18 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
                 ae.sequence.frameAnimation = new Sprite[0];
             if (!frameAnimation.hasMultipleDifferentValues)
                 EditorGUILayout.HelpBox("Frames count:" + ae.sequence.frameAnimation.Length, MessageType.None);
+
+            EditorGUILayout.PropertyField(UseFPS, new GUIContent("UseFPS"), true);
+            if(!UseFPS.hasMultipleDifferentValues)
+            {
+                if (UseFPS.boolValue)
+                {
+                    AnimationTime = null;
+                    EditorGUILayout.PropertyField(FPS, new GUIContent("FPS"), true);
+                }
+                else
+                    AnimationTime = sp.FindPropertyRelative("AnimationTime");
+            }
             EditorGUILayout.PropertyField(frameAnimation, new GUIContent("Frames"), true);
             if (GUILayout.Button(new GUIContent("Get from selected"), EditorStyles.miniButton))
             {
