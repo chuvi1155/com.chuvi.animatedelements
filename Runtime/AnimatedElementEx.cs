@@ -226,28 +226,23 @@ public class AnimatedElementEx : MonoBehaviour
     {
         Play();
     }
-
-    bool InitFields()
+    
+    void InitFields()
     {
-        if (transformation == null || OnEnableEvent == null)
-        {
-            transformation = new AnimatedTransform(commonTransform);
-            rotation = new AnimatedRotation(commonTransform);
-            scale = new AnimatedScale(commonTransform);
-            color = new AnimatedColor(commonTransform);
-            sequence = new AnimatedSequence(commonTransform);
-            actions = new AnimatedAction(commonTransform);
-            material = new AnimatedMaterial(commonTransform);
+        if (transformation == null) transformation = new AnimatedTransform(commonTransform);
+        if (rotation == null) rotation = new AnimatedRotation(commonTransform);
+        if (scale == null) scale = new AnimatedScale(commonTransform);
+        if (color == null) color = new AnimatedColor(commonTransform);
+        if (sequence == null) sequence = new AnimatedSequence(commonTransform);
+        if (actions == null) actions = new AnimatedAction(commonTransform);
+        if (material == null) material = new AnimatedMaterial(commonTransform);
 
-            StartAnimations = new UnityEngine.Events.UnityEvent();
-            EndAnimations = new UnityEngine.Events.UnityEvent();
+        if (StartAnimations == null) StartAnimations = new UnityEngine.Events.UnityEvent();
+        if (EndAnimations == null) EndAnimations = new UnityEngine.Events.UnityEvent();
 
-            OnEnableEvent = new UnityEngine.Events.UnityEvent();
-            OnDisableEvent = new UnityEngine.Events.UnityEvent();
-            return true;
-        }
-        else InitCommonTransform();
-        return false;
+        if (OnEnableEvent == null) OnEnableEvent = new UnityEngine.Events.UnityEvent();
+        if (OnDisableEvent == null) OnDisableEvent = new UnityEngine.Events.UnityEvent();
+        InitCommonTransform();
     }
 
     void InitCommonTransform()
