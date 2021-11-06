@@ -36,9 +36,9 @@ public class AnimatedScaleEditor : AnimatedBehaviourEditor
         if (!UseSize.hasMultipleDifferentValues)
         {
             AnimatedElementEx ae_ex = ae_editor.target as AnimatedElementEx;
-            if ((ae_ex.scale.mainTransform == null && ae_ex.commonTransform != null && ae_ex.commonTransform.GetComponent<RectTransform>() != null) ||
-                (ae_ex.scale.mainTransform != null && ae_ex.scale.rtr != null) ||
-                (ae_ex.scale.mainTransform == null && ae_ex.commonTransform == null && ae_ex.transform.GetComponent<RectTransform>() != null))
+            if ((ae_ex.Scale.mainTransform == null && ae_ex.commonTransform != null && ae_ex.commonTransform.GetComponent<RectTransform>() != null) ||
+                (ae_ex.Scale.mainTransform != null && ae_ex.Scale.rtr != null) ||
+                (ae_ex.Scale.mainTransform == null && ae_ex.commonTransform == null && ae_ex.transform.GetComponent<RectTransform>() != null))
                 EditorGUILayout.PropertyField(UseSize, new GUIContent("UseSize"));
             else
             {
@@ -84,17 +84,17 @@ public class AnimatedScaleEditor : AnimatedBehaviourEditor
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
 
             Vector3 v1;
-            if (ae_ex.scale.UseSize)
+            if (ae_ex.Scale.UseSize)
             {
-                v1 = ae_ex.scale.from_size;
-                ae_ex.scale.from_size = ae_ex.scale.to_size;
-                ae_ex.scale.to_size = v1;
+                v1 = ae_ex.Scale.from_size;
+                ae_ex.Scale.from_size = ae_ex.Scale.to_size;
+                ae_ex.Scale.to_size = v1;
             }
             else
             {
-                v1 = ae_ex.scale.from_scale;
-                ae_ex.scale.from_scale = ae_ex.scale.to_scale;
-                ae_ex.scale.to_scale = v1;
+                v1 = ae_ex.Scale.from_scale;
+                ae_ex.Scale.from_scale = ae_ex.Scale.to_scale;
+                ae_ex.Scale.to_scale = v1;
             }
         }
     }
@@ -104,15 +104,15 @@ public class AnimatedScaleEditor : AnimatedBehaviourEditor
         AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
         if (to)
         {
-            if(ae_ex.scale.UseSize)
-                ae_ex.scale.to_size = Vector3.zero;
-            else ae_ex.scale.to_scale = Vector3.zero;
+            if(ae_ex.Scale.UseSize)
+                ae_ex.Scale.to_size = Vector3.zero;
+            else ae_ex.Scale.to_scale = Vector3.zero;
         }
         else
         {
-            if (ae_ex.scale.UseSize)
-                ae_ex.scale.from_size = Vector3.zero;
-            else ae_ex.scale.from_scale = Vector3.zero;
+            if (ae_ex.Scale.UseSize)
+                ae_ex.Scale.from_size = Vector3.zero;
+            else ae_ex.Scale.from_scale = Vector3.zero;
         }
     }
     void OnResetToOne(bool to, int i)
@@ -120,15 +120,15 @@ public class AnimatedScaleEditor : AnimatedBehaviourEditor
         AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
         if (to)
         {
-            if (ae_ex.scale.UseSize)
-                ae_ex.scale.to_size = Vector3.one;
-            else ae_ex.scale.to_scale = Vector3.one;
+            if (ae_ex.Scale.UseSize)
+                ae_ex.Scale.to_size = Vector3.one;
+            else ae_ex.Scale.to_scale = Vector3.one;
         }
         else
         {
-            if (ae_ex.scale.UseSize)
-                ae_ex.scale.from_size = Vector3.one;
-            else ae_ex.scale.from_scale = Vector3.one;
+            if (ae_ex.Scale.UseSize)
+                ae_ex.Scale.from_size = Vector3.one;
+            else ae_ex.Scale.from_scale = Vector3.one;
         }
     }
     void OnResetToCurrent(bool to, int i)
@@ -136,63 +136,63 @@ public class AnimatedScaleEditor : AnimatedBehaviourEditor
         AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
         if (to)
         {
-            if (ae_ex.scale.mainTransform != null)
+            if (ae_ex.Scale.mainTransform != null)
             {
-                if (ae_ex.scale.UseSize) ae_ex.scale.to_size = ae_ex.scale.rtr.sizeDelta;
-                else ae_ex.scale.to_scale = ae_ex.scale.mainTransform.localScale;
+                if (ae_ex.Scale.UseSize) ae_ex.Scale.to_size = ae_ex.Scale.rtr.sizeDelta;
+                else ae_ex.Scale.to_scale = ae_ex.Scale.mainTransform.localScale;
             }
             else
             {
                 if (ae_ex.commonTransform != null)
                 {
-                    if (ae_ex.scale.UseSize)
+                    if (ae_ex.Scale.UseSize)
                     {
                         RectTransform rtr = ae_ex.commonTransform.GetComponent<RectTransform>();
-                        ae_ex.scale.to_size = rtr.sizeDelta;
+                        ae_ex.Scale.to_size = rtr.sizeDelta;
                     }
                     else
-                        ae_ex.scale.to_scale = ae_ex.commonTransform.localScale;
+                        ae_ex.Scale.to_scale = ae_ex.commonTransform.localScale;
                 }
                 else
                 {
-                    if (ae_ex.scale.UseSize)
+                    if (ae_ex.Scale.UseSize)
                     {
                         RectTransform rtr = ae_ex.transform.GetComponent<RectTransform>();
-                        ae_ex.scale.to_size = rtr.sizeDelta;
+                        ae_ex.Scale.to_size = rtr.sizeDelta;
                     }
                     else
-                        ae_ex.scale.to_scale = ae_ex.transform.localScale;
+                        ae_ex.Scale.to_scale = ae_ex.transform.localScale;
                 }
             }
         }
         else
         {
-            if (ae_ex.scale.mainTransform != null)
+            if (ae_ex.Scale.mainTransform != null)
             {
-                if (ae_ex.scale.UseSize) ae_ex.scale.from_size = ae_ex.scale.rtr.sizeDelta;
-                else ae_ex.scale.from_scale = ae_ex.scale.mainTransform.localScale;
+                if (ae_ex.Scale.UseSize) ae_ex.Scale.from_size = ae_ex.Scale.rtr.sizeDelta;
+                else ae_ex.Scale.from_scale = ae_ex.Scale.mainTransform.localScale;
             }
             else
             {
                 if (ae_ex.commonTransform != null)
                 {
-                    if (ae_ex.scale.UseSize)
+                    if (ae_ex.Scale.UseSize)
                     {
                         RectTransform rtr = ae_ex.commonTransform.GetComponent<RectTransform>();
-                        ae_ex.scale.from_size = rtr.sizeDelta;
+                        ae_ex.Scale.from_size = rtr.sizeDelta;
                     }
                     else
-                        ae_ex.scale.from_scale = ae_ex.commonTransform.localScale;
+                        ae_ex.Scale.from_scale = ae_ex.commonTransform.localScale;
                 }
                 else
                 {
-                    if (ae_ex.scale.UseSize)
+                    if (ae_ex.Scale.UseSize)
                     {
                         RectTransform rtr = ae_ex.transform.GetComponent<RectTransform>();
-                        ae_ex.scale.from_size = rtr.sizeDelta;
+                        ae_ex.Scale.from_size = rtr.sizeDelta;
                     }
                     else
-                        ae_ex.scale.from_scale = ae_ex.transform.localScale;
+                        ae_ex.Scale.from_scale = ae_ex.transform.localScale;
                 }
             }
         }

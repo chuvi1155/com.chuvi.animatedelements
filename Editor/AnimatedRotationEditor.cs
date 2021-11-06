@@ -25,9 +25,9 @@ public class AnimatedRotationEditor : AnimatedBehaviourEditor
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
 
-            Vector3 v1 = ae_ex.rotation.from_rotation;
-            ae_ex.rotation.from_rotation = ae_ex.rotation.to_rotation;
-            ae_ex.rotation.to_rotation = v1;
+            Vector3 v1 = ae_ex.Rotation.from_rotation;
+            ae_ex.Rotation.from_rotation = ae_ex.Rotation.to_rotation;
+            ae_ex.Rotation.to_rotation = v1;
         }
     }
 
@@ -59,12 +59,12 @@ public class AnimatedRotationEditor : AnimatedBehaviourEditor
         if (to)
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
-            ae_ex.rotation.to_rotation = Vector3.zero;
+            ae_ex.Rotation.to_rotation = Vector3.zero;
         }
         else
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
-            ae_ex.rotation.from_rotation = Vector3.zero;
+            ae_ex.Rotation.from_rotation = Vector3.zero;
         }
     }
     void OnResetToOne(bool to, int i)
@@ -72,12 +72,12 @@ public class AnimatedRotationEditor : AnimatedBehaviourEditor
         if (to)
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
-            ae_ex.rotation.to_rotation = new Vector3(360, 360, 360);
+            ae_ex.Rotation.to_rotation = new Vector3(360, 360, 360);
         }
         else
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
-            ae_ex.rotation.from_rotation = new Vector3(360, 360, 360);
+            ae_ex.Rotation.from_rotation = new Vector3(360, 360, 360);
         }
     }
     void OnResetToCurrent(bool to, int i)
@@ -85,28 +85,28 @@ public class AnimatedRotationEditor : AnimatedBehaviourEditor
         AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
         if (to)
         {
-            if (ae_ex.rotation.mainTransform != null)
+            if (ae_ex.Rotation.mainTransform != null)
             {
-                ae_ex.rotation.to_rotation = ae_ex.rotation.mainTransform.localEulerAngles;
+                ae_ex.Rotation.to_rotation = ae_ex.Rotation.mainTransform.localEulerAngles;
             }
             else
             {
                 if (ae_ex.commonTransform != null)
-                    ae_ex.rotation.to_rotation = ae_ex.commonTransform.localEulerAngles;
-                else ae_ex.rotation.to_rotation = ae_ex.transform.localEulerAngles;
+                    ae_ex.Rotation.to_rotation = ae_ex.commonTransform.localEulerAngles;
+                else ae_ex.Rotation.to_rotation = ae_ex.transform.localEulerAngles;
             }
         }
         else
         {
-            if (ae_ex.rotation.mainTransform != null)
+            if (ae_ex.Rotation.mainTransform != null)
             {
-                ae_ex.rotation.from_rotation = ae_ex.rotation.mainTransform.localEulerAngles;
+                ae_ex.Rotation.from_rotation = ae_ex.Rotation.mainTransform.localEulerAngles;
             }
             else
             {
                 if (ae_ex.commonTransform != null)
-                    ae_ex.rotation.from_rotation = ae_ex.commonTransform.localEulerAngles;
-                else ae_ex.rotation.from_rotation = ae_ex.transform.localEulerAngles;
+                    ae_ex.Rotation.from_rotation = ae_ex.commonTransform.localEulerAngles;
+                else ae_ex.Rotation.from_rotation = ae_ex.transform.localEulerAngles;
             }
         }
     }

@@ -50,12 +50,12 @@ public class AnimatedTransformationEditor : AnimatedBehaviourEditor
         if (to)
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
-            ae_ex.transformation.to_transformPos = Vector3.zero;
+            ae_ex.Transformation.to_transformPos = Vector3.zero;
         }
         else
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
-            ae_ex.transformation.from_transformPos = Vector3.zero;
+            ae_ex.Transformation.from_transformPos = Vector3.zero;
         }
     }
     void OnResetToOne(bool to, int i)
@@ -63,12 +63,12 @@ public class AnimatedTransformationEditor : AnimatedBehaviourEditor
         if (to)
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
-            ae_ex.transformation.to_transformPos = Vector3.one;
+            ae_ex.Transformation.to_transformPos = Vector3.one;
         }
         else
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
-            ae_ex.transformation.from_transformPos = Vector3.one;
+            ae_ex.Transformation.from_transformPos = Vector3.one;
         }
     }
     void OnResetToCurrent(bool to, int i)
@@ -76,11 +76,11 @@ public class AnimatedTransformationEditor : AnimatedBehaviourEditor
         AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
         if (to)
         {
-            if (ae_ex.transformation.mainTransform != null)
+            if (ae_ex.Transformation.mainTransform != null)
             {
-                if (ae_ex.transformation.rtr != null)
-                    ae_ex.transformation.to_transformPos = ae_ex.transformation.rtr.anchoredPosition;
-                else ae_ex.transformation.to_transformPos = ae_ex.transformation.mainTransform.localPosition;
+                if (ae_ex.Transformation.rtr != null)
+                    ae_ex.Transformation.to_transformPos = ae_ex.Transformation.rtr.anchoredPosition;
+                else ae_ex.Transformation.to_transformPos = ae_ex.Transformation.mainTransform.localPosition;
             }
             else 
             {
@@ -88,25 +88,25 @@ public class AnimatedTransformationEditor : AnimatedBehaviourEditor
                 {
                     RectTransform rtr = ae_ex.commonTransform.GetComponent<RectTransform>();
                     if (rtr != null)
-                        ae_ex.transformation.to_transformPos = rtr.anchoredPosition;
-                    else ae_ex.transformation.to_transformPos = ae_ex.commonTransform.localPosition;
+                        ae_ex.Transformation.to_transformPos = rtr.anchoredPosition;
+                    else ae_ex.Transformation.to_transformPos = ae_ex.commonTransform.localPosition;
                 }
                 else
                 {
                     RectTransform rtr = ae_ex.GetComponent<RectTransform>();
                     if (rtr != null)
-                        ae_ex.transformation.to_transformPos = rtr.anchoredPosition;
-                    else ae_ex.transformation.to_transformPos = ae_ex.transform.localPosition;
+                        ae_ex.Transformation.to_transformPos = rtr.anchoredPosition;
+                    else ae_ex.Transformation.to_transformPos = ae_ex.transform.localPosition;
                 }
             }
         }
         else
         {
-            if (ae_ex.transformation.mainTransform != null)
+            if (ae_ex.Transformation.mainTransform != null)
             {
-                if (ae_ex.transformation.rtr != null)
-                    ae_ex.transformation.from_transformPos = ae_ex.transformation.rtr.anchoredPosition;
-                else ae_ex.transformation.from_transformPos = ae_ex.transformation.mainTransform.localPosition;
+                if (ae_ex.Transformation.rtr != null)
+                    ae_ex.Transformation.from_transformPos = ae_ex.Transformation.rtr.anchoredPosition;
+                else ae_ex.Transformation.from_transformPos = ae_ex.Transformation.mainTransform.localPosition;
             }
             else
             {
@@ -114,15 +114,15 @@ public class AnimatedTransformationEditor : AnimatedBehaviourEditor
                 {
                     RectTransform rtr = ae_ex.commonTransform.GetComponent<RectTransform>();
                     if (rtr != null)
-                        ae_ex.transformation.from_transformPos = rtr.anchoredPosition;
-                    else ae_ex.transformation.from_transformPos = ae_ex.commonTransform.localPosition;
+                        ae_ex.Transformation.from_transformPos = rtr.anchoredPosition;
+                    else ae_ex.Transformation.from_transformPos = ae_ex.commonTransform.localPosition;
                 }
                 else
                 {
                     RectTransform rtr = ae_ex.GetComponent<RectTransform>();
                     if (rtr != null)
-                        ae_ex.transformation.from_transformPos = rtr.anchoredPosition;
-                    else ae_ex.transformation.from_transformPos = ae_ex.transform.localPosition;
+                        ae_ex.Transformation.from_transformPos = rtr.anchoredPosition;
+                    else ae_ex.Transformation.from_transformPos = ae_ex.transform.localPosition;
                 }
             }
         }
@@ -134,9 +134,9 @@ public class AnimatedTransformationEditor : AnimatedBehaviourEditor
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
 
-            Vector3 v1 = ae_ex.transformation.from_transformPos;
-            ae_ex.transformation.from_transformPos = ae_ex.transformation.to_transformPos;
-            ae_ex.transformation.to_transformPos = v1;
+            Vector3 v1 = ae_ex.Transformation.from_transformPos;
+            ae_ex.Transformation.from_transformPos = ae_ex.Transformation.to_transformPos;
+            ae_ex.Transformation.to_transformPos = v1;
         }
     }
     protected override void DrawAfter()

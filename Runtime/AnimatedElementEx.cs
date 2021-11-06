@@ -21,13 +21,77 @@ public class AnimatedElementEx : MonoBehaviour
 
 
     [Space]
-    public AnimatedTransform transformation;
-    public AnimatedRotation rotation;
-    public AnimatedScale scale;
-    public AnimatedColor color;
-    public AnimatedSequence sequence;
-    public AnimatedAction actions;
-    public AnimatedMaterial material;
+    [SerializeField] AnimatedTransform transformation;
+    [SerializeField] AnimatedRotation rotation;
+    [SerializeField] AnimatedScale scale;
+    [SerializeField] AnimatedColor color;
+    [SerializeField] AnimatedSequence sequence;
+    [SerializeField] AnimatedAction actions;
+    [SerializeField] AnimatedMaterial material;
+
+    public AnimatedTransform Transformation
+    {
+        get 
+        {
+            if(transformation == null)
+                transformation = new AnimatedTransform(commonTransform);
+            return transformation;
+        }
+    }
+    public AnimatedRotation Rotation
+    {
+        get
+        {
+            if (rotation == null)
+                rotation = new AnimatedRotation(commonTransform);
+            return rotation;
+        }
+    }
+    public AnimatedScale Scale
+    {
+        get
+        {
+            if (scale == null)
+                scale = new AnimatedScale(commonTransform);
+            return scale;
+        }
+    }
+    public AnimatedColor Color
+    {
+        get
+        {
+            if (color == null)
+                color = new AnimatedColor(commonTransform);
+            return color;
+        }
+    }
+    public AnimatedSequence Sequence
+    {
+        get
+        {
+            if (sequence == null)
+                sequence = new AnimatedSequence(commonTransform);
+            return sequence;
+        }
+    }
+    public AnimatedAction Actions
+    {
+        get
+        {
+            if (actions == null)
+                actions = new AnimatedAction(commonTransform);
+            return actions;
+        }
+    }
+    public AnimatedMaterial Material
+    {
+        get
+        {
+            if (material == null)
+                material = new AnimatedMaterial(commonTransform);
+            return material;
+        }
+    }
 
     public UnityEngine.Events.UnityEvent StartAnimations;
     public UnityEngine.Events.UnityEvent EndAnimations;

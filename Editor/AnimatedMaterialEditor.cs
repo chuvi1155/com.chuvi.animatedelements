@@ -110,27 +110,27 @@ public class AnimatedMaterialEditor : AnimatedBehaviourEditor
         AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
         if (componentNum == 0) // Offset from
         {
-            if(string.IsNullOrEmpty(ae_ex.material.TexturePropertyName))
-                ae_ex.material.FromOffsetValue = ae_ex.material.material.mainTextureOffset;
-            else ae_ex.material.FromOffsetValue = ae_ex.material.material.GetTextureOffset(ae_ex.material.TexturePropertyName);
+            if(string.IsNullOrEmpty(ae_ex.Material.TexturePropertyName))
+                ae_ex.Material.FromOffsetValue = ae_ex.Material.material.mainTextureOffset;
+            else ae_ex.Material.FromOffsetValue = ae_ex.Material.material.GetTextureOffset(ae_ex.Material.TexturePropertyName);
         }
         else if (componentNum == 1) // Offset to
         {
-            if (string.IsNullOrEmpty(ae_ex.material.TexturePropertyName))
-                ae_ex.material.ToOffsetValue = ae_ex.material.material.mainTextureOffset;
-            else ae_ex.material.ToOffsetValue = ae_ex.material.material.GetTextureOffset(ae_ex.material.TexturePropertyName);
+            if (string.IsNullOrEmpty(ae_ex.Material.TexturePropertyName))
+                ae_ex.Material.ToOffsetValue = ae_ex.Material.material.mainTextureOffset;
+            else ae_ex.Material.ToOffsetValue = ae_ex.Material.material.GetTextureOffset(ae_ex.Material.TexturePropertyName);
         }
         else if (componentNum == 2) // Tiling from
         {
-            if (string.IsNullOrEmpty(ae_ex.material.TexturePropertyName))
-                ae_ex.material.FromTilingValue = ae_ex.material.material.mainTextureScale;
-            else ae_ex.material.FromTilingValue = ae_ex.material.material.GetTextureScale(ae_ex.material.TexturePropertyName);
+            if (string.IsNullOrEmpty(ae_ex.Material.TexturePropertyName))
+                ae_ex.Material.FromTilingValue = ae_ex.Material.material.mainTextureScale;
+            else ae_ex.Material.FromTilingValue = ae_ex.Material.material.GetTextureScale(ae_ex.Material.TexturePropertyName);
         }
         else if (componentNum == 3) // Tiling to
         {
-            if (string.IsNullOrEmpty(ae_ex.material.TexturePropertyName))
-                ae_ex.material.ToTilingValue = ae_ex.material.material.mainTextureScale;
-            else ae_ex.material.ToTilingValue = ae_ex.material.material.GetTextureScale(ae_ex.material.TexturePropertyName);
+            if (string.IsNullOrEmpty(ae_ex.Material.TexturePropertyName))
+                ae_ex.Material.ToTilingValue = ae_ex.Material.material.mainTextureScale;
+            else ae_ex.Material.ToTilingValue = ae_ex.Material.material.GetTextureScale(ae_ex.Material.TexturePropertyName);
         }
     }
 

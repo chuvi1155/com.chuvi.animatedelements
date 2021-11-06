@@ -59,9 +59,9 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
 
-            float v1 = ae_ex.actions.FromCustomRangeValue;
-            ae_ex.actions.FromCustomRangeValue = ae_ex.actions.ToCustomRangeValue;
-            ae_ex.actions.ToCustomRangeValue = v1;
+            float v1 = ae_ex.Actions.FromCustomRangeValue;
+            ae_ex.Actions.FromCustomRangeValue = ae_ex.Actions.ToCustomRangeValue;
+            ae_ex.Actions.ToCustomRangeValue = v1;
         }
     }
 
@@ -84,7 +84,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
             {
                 EditorGUILayout.HelpBox("The event is triggered every update and returns a value from 0 to 1, where 1 - is the normalized '<b>AnimationTime</b>' field.", MessageType.Info);
 
-                ProgressBar(ae.actions.AnimatedTimeTick, ae.actions.AnimationTime);
+                ProgressBar(ae.Actions.AnimatedTimeTick, ae.Actions.AnimationTime);
 
                 EditorGUILayout.PropertyField(ClampedAction, new GUIContent("Clamped action"));
                 if (ToStringEvent.boolValue)
@@ -96,7 +96,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
                     EditorGUILayout.Space();
                 EditorGUILayout.HelpBox("The event is triggered every update and returns a inverted value from 1 to 0, where 0 - is the normalized '<b>AnimationTime</b>' field.", MessageType.Info);
 
-                ProgressBar(ae.actions.AnimationTime - ae.actions.AnimatedTimeTick, ae.actions.AnimationTime);
+                ProgressBar(ae.Actions.AnimationTime - ae.Actions.AnimatedTimeTick, ae.Actions.AnimationTime);
 
                 EditorGUILayout.PropertyField(InvertClampedAction, new GUIContent("Invert clamped value action"));
                 if(ToStringEvent.boolValue)
@@ -110,7 +110,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
                     EditorGUILayout.Space();
                 EditorGUILayout.HelpBox("The event is triggered every update and returns a value from '<b>Curve</b>' field", MessageType.Info);
                 
-                ProgressBar(ae.actions.CurveValue, ae.actions.GetMinCurveValue, ae.actions.GetMaxCurveValue);
+                ProgressBar(ae.Actions.CurveValue, ae.Actions.GetMinCurveValue, ae.Actions.GetMaxCurveValue);
 
                 EditorGUILayout.PropertyField(CurvedValueAction, new GUIContent("Curved value action"));
                 if (ToStringEvent.boolValue)
@@ -126,7 +126,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
                 EditorGUILayout.PropertyField(MaxCustomValue, new GUIContent("Max value"));
                 EditorGUILayout.PropertyField(CustomActionReversed, new GUIContent("Reversed value", "Return inverted value?"));
                 
-                ProgressBar(ae.actions.AnimatedTimeTick, ae.actions.MaxCustomValue);
+                ProgressBar(ae.Actions.AnimatedTimeTick, ae.Actions.MaxCustomValue);
 
                 EditorGUILayout.PropertyField(CustomValueAction, new GUIContent("Custom value action"));
                 if (ToStringEvent.boolValue)
@@ -143,7 +143,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
                 EditorGUILayout.PropertyField(FromCustomRangeValue, new GUIContent("From value"));
                 EditorGUILayout.PropertyField(ToCustomRangeValue, new GUIContent("To value"));
                 
-                ProgressBar(ae.actions.AnimatedTimeTick, ae.actions.FromCustomRangeValue, ae.actions.ToCustomRangeValue);
+                ProgressBar(ae.Actions.AnimatedTimeTick, ae.Actions.FromCustomRangeValue, ae.Actions.ToCustomRangeValue);
 
                 EditorGUILayout.PropertyField(CustomRangeValueAction, new GUIContent("Custom range value action"));
                 if (ToStringEvent.boolValue)

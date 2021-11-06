@@ -36,9 +36,9 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
 
-            Color v1 = ae_ex.color.from_color;
-            ae_ex.color.from_color = ae_ex.color.to_color;
-            ae_ex.color.to_color = v1;
+            Color v1 = ae_ex.Color.from_color;
+            ae_ex.Color.from_color = ae_ex.Color.to_color;
+            ae_ex.Color.to_color = v1;
         }
     }
 
@@ -96,7 +96,7 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
                 {
                     EditorGUI.showMixedValue = from_color.hasMultipleDifferentValues;
                     var ae = ae_editor.target as AnimatedElementEx;
-                    ae.color.from_alpha = EditorGUILayout.Slider("From alpha", ae.color.from_alpha, 0f, 1f);
+                    ae.Color.from_alpha = EditorGUILayout.Slider("From alpha", ae.Color.from_alpha, 0f, 1f);
                     EditorGUI.showMixedValue = smv;
                 }
                 else EditorGUILayout.PropertyField(from_color, new GUIContent("From"));
@@ -106,7 +106,7 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
                 {
                     EditorGUI.showMixedValue = to_color.hasMultipleDifferentValues;
                     var ae = ae_editor.target as AnimatedElementEx;
-                    ae.color.to_alpha = EditorGUILayout.Slider("To alpha", ae.color.to_alpha, 0f, 1f);
+                    ae.Color.to_alpha = EditorGUILayout.Slider("To alpha", ae.Color.to_alpha, 0f, 1f);
                     EditorGUI.showMixedValue = smv;
                 }
                 else EditorGUILayout.PropertyField(to_color, new GUIContent("To"));
@@ -151,64 +151,64 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
         AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
         if (componentNum == 0) // Image
         {
-            if (ae_ex.color.mainTransform != null)
+            if (ae_ex.Color.mainTransform != null)
             {
-                Graphic img = ae_ex.color.mainTransform.GetComponent<Graphic>();
-                ae_ex.color.coloredImage = img;
+                Graphic img = ae_ex.Color.mainTransform.GetComponent<Graphic>();
+                ae_ex.Color.coloredImage = img;
             }
             else
             {
                 if (ae_ex.commonTransform != null)
                 {
                     Graphic img = ae_ex.commonTransform.GetComponent<Graphic>();
-                    ae_ex.color.coloredImage = img;
+                    ae_ex.Color.coloredImage = img;
                 }
                 else
                 {
                     Graphic img = ae_ex.GetComponent<Graphic>();
-                    ae_ex.color.coloredImage = img;
+                    ae_ex.Color.coloredImage = img;
                 }
             }
         }
         else if (componentNum == 1) // Effect
         {
-            if (ae_ex.color.mainTransform != null)
+            if (ae_ex.Color.mainTransform != null)
             {
-                Shadow img = ae_ex.color.mainTransform.GetComponent<Shadow>();
-                ae_ex.color.coloredEffect = img;
+                Shadow img = ae_ex.Color.mainTransform.GetComponent<Shadow>();
+                ae_ex.Color.coloredEffect = img;
             }
             else
             {
                 if (ae_ex.commonTransform != null)
                 {
                     Shadow img = ae_ex.commonTransform.GetComponent<Shadow>();
-                    ae_ex.color.coloredEffect = img;
+                    ae_ex.Color.coloredEffect = img;
                 }
                 else
                 {
                     Shadow img = ae_ex.GetComponent<Shadow>();
-                    ae_ex.color.coloredEffect = img;
+                    ae_ex.Color.coloredEffect = img;
                 }
             }
         }
         else if (componentNum == 2) // CanvasGroup
         {
-            if (ae_ex.color.mainTransform != null)
+            if (ae_ex.Color.mainTransform != null)
             {
-                CanvasGroup img = ae_ex.color.mainTransform.GetComponent<CanvasGroup>();
-                ae_ex.color.coloredCanvasGroup = img;
+                CanvasGroup img = ae_ex.Color.mainTransform.GetComponent<CanvasGroup>();
+                ae_ex.Color.coloredCanvasGroup = img;
             }
             else
             {
                 if (ae_ex.commonTransform != null)
                 {
                     CanvasGroup img = ae_ex.commonTransform.GetComponent<CanvasGroup>();
-                    ae_ex.color.coloredCanvasGroup = img;
+                    ae_ex.Color.coloredCanvasGroup = img;
                 }
                 else
                 {
                     CanvasGroup img = ae_ex.GetComponent<CanvasGroup>();
-                    ae_ex.color.coloredCanvasGroup = img;
+                    ae_ex.Color.coloredCanvasGroup = img;
                 }
             }
         }

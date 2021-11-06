@@ -13,8 +13,6 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
     // raw
     SerializedProperty PlayRaw;
     SerializedProperty RawFileName;
-    SerializedProperty FPS;
-    SerializedProperty UseFPS;
 
     protected override bool CanRevert { get { return false; } }
 
@@ -33,9 +31,6 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
 
         PlayRaw = sp.FindPropertyRelative("PlayRaw");
         RawFileName = sp.FindPropertyRelative("RawFileName");
-
-        UseFPS = sp.FindPropertyRelative("UseFPS");
-        FPS = sp.FindPropertyRelative("FPS");
     }
 
     protected override void DrawBefore()
@@ -70,22 +65,10 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
             EditorGUILayout.PropertyField(RawFileName, new GUIContent("RawFileName"), true);
             
 
-            if (ae.sequence.frameAnimation == null)
-                ae.sequence.frameAnimation = new Sprite[0];
+            if (ae.Sequence.frameAnimation == null)
+                ae.Sequence.frameAnimation = new Sprite[0];
             if (!frameAnimation.hasMultipleDifferentValues)
-                EditorGUILayout.HelpBox("Frames count:" + ae.sequence.frameAnimation.Length, MessageType.None);
-
-            EditorGUILayout.PropertyField(UseFPS, new GUIContent("UseFPS"), true);
-            if(!UseFPS.hasMultipleDifferentValues)
-            {
-                if (UseFPS.boolValue)
-                {
-                    AnimationTime = null;
-                    EditorGUILayout.PropertyField(FPS, new GUIContent("FPS"), true);
-                }
-                else
-                    AnimationTime = sp.FindPropertyRelative("AnimationTime");
-            }
+                EditorGUILayout.HelpBox("Frames count:" + ae.Sequence.frameAnimation.Length, MessageType.None);
             EditorGUILayout.PropertyField(frameAnimation, new GUIContent("Frames"), true);
             if (GUILayout.Button(new GUIContent("Get from selected"), EditorStyles.miniButton))
             {
@@ -106,43 +89,43 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
         AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
         if (componentNum == 0) // Image
         {
-            if (ae_ex.sequence.mainTransform != null)
+            if (ae_ex.Sequence.mainTransform != null)
             {
-                Image img = ae_ex.sequence.mainTransform.GetComponent<Image>();
-                ae_ex.sequence.image = img;
+                Image img = ae_ex.Sequence.mainTransform.GetComponent<Image>();
+                ae_ex.Sequence.image = img;
             }
             else
             {
                 if (ae_ex.commonTransform != null)
                 {
                     Image img = ae_ex.commonTransform.GetComponent<Image>();
-                    ae_ex.sequence.image = img;
+                    ae_ex.Sequence.image = img;
                 }
                 else
                 {
                     Image img = ae_ex.GetComponent<Image>();
-                    ae_ex.sequence.image = img;
+                    ae_ex.Sequence.image = img;
                 }
             }
         }
         else if (componentNum == 1) // Sprite
         {
-            if (ae_ex.sequence.mainTransform != null)
+            if (ae_ex.Sequence.mainTransform != null)
             {
-                SpriteRenderer img = ae_ex.sequence.mainTransform.GetComponent<SpriteRenderer>();
-                ae_ex.sequence.sprite = img;
+                SpriteRenderer img = ae_ex.Sequence.mainTransform.GetComponent<SpriteRenderer>();
+                ae_ex.Sequence.sprite = img;
             }
             else
             {
                 if (ae_ex.commonTransform != null)
                 {
                     SpriteRenderer img = ae_ex.commonTransform.GetComponent<SpriteRenderer>();
-                    ae_ex.sequence.sprite = img;
+                    ae_ex.Sequence.sprite = img;
                 }
                 else
                 {
                     SpriteRenderer img = ae_ex.GetComponent<SpriteRenderer>();
-                    ae_ex.sequence.sprite = img;
+                    ae_ex.Sequence.sprite = img;
                 }
             }
         }
@@ -174,7 +157,7 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
                     list.Add(AssetDatabase.LoadAssetAtPath<Sprite>(AssetDatabase.GetAssetPath(item)));
                 }
                 list.Sort((a, b) => { return a.name.CompareTo(b.name); });
-                Target.sequence.frameAnimation = list.ToArray();
+                Target.Sequence.frameAnimation = list.ToArray();
 
                 if (GUILayout.Button("Ok"))
                 {

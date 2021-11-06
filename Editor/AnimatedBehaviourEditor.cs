@@ -105,19 +105,19 @@ public abstract class AnimatedBehaviourEditor
         switch (sp.name)
         {
             case "transformation":
-                return ae_ex.transformation.IsWaiting;
+                return ae_ex.Transformation.IsWaiting;
             case "rotation":
-                return ae_ex.rotation.IsWaiting;
+                return ae_ex.Rotation.IsWaiting;
             case "scale":
-                return ae_ex.scale.IsWaiting;
+                return ae_ex.Scale.IsWaiting;
             case "color":
-                return ae_ex.color.IsWaiting;
+                return ae_ex.Color.IsWaiting;
             case "sequence":
-                return ae_ex.sequence.IsWaiting;
+                return ae_ex.Sequence.IsWaiting;
             case "actions":
-                return ae_ex.actions.IsWaiting;
+                return ae_ex.Actions.IsWaiting;
             case "material":
-                return ae_ex.material.IsWaiting;
+                return ae_ex.Material.IsWaiting;
             default:
                 Debug.LogError("Unknown property name: " + sp.name);
                 break;
@@ -171,19 +171,19 @@ public abstract class AnimatedBehaviourEditor
                     {
                         AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
                         if (sp.name == "transformation")
-                            ae_ex.transformation.mainTransform = mainTransform.objectReferenceValue as Transform;
+                            ae_ex.Transformation.mainTransform = mainTransform.objectReferenceValue as Transform;
                         else if (sp.name == "rotation")
-                            ae_ex.rotation.mainTransform = mainTransform.objectReferenceValue as Transform;
+                            ae_ex.Rotation.mainTransform = mainTransform.objectReferenceValue as Transform;
                         else if (sp.name == "scale")
-                            ae_ex.scale.mainTransform = mainTransform.objectReferenceValue as Transform;
+                            ae_ex.Scale.mainTransform = mainTransform.objectReferenceValue as Transform;
                         else if (sp.name == "color")
-                            ae_ex.color.mainTransform = mainTransform.objectReferenceValue as Transform;
+                            ae_ex.Color.mainTransform = mainTransform.objectReferenceValue as Transform;
                         else if (sp.name == "sequence")
-                            ae_ex.sequence.mainTransform = mainTransform.objectReferenceValue as Transform;
+                            ae_ex.Sequence.mainTransform = mainTransform.objectReferenceValue as Transform;
                         else if (sp.name == "actions")
-                            ae_ex.actions.mainTransform = mainTransform.objectReferenceValue as Transform;
+                            ae_ex.Actions.mainTransform = mainTransform.objectReferenceValue as Transform;
                         else if (sp.name == "material")
-                            ae_ex.material.mainTransform = mainTransform.objectReferenceValue as Transform;
+                            ae_ex.Material.mainTransform = mainTransform.objectReferenceValue as Transform;
                         else Debug.LogError("Unknown property name: " + sp.name);
                     }
                 }
@@ -284,19 +284,19 @@ public abstract class AnimatedBehaviourEditor
         {
             AnimatedElementEx ae_ex = ae_editor.targets[i] as AnimatedElementEx;
             if (sp.name == "transformation")
-                ae_ex.transformation.ResetInFromState();
+                ae_ex.Transformation.ResetInFromState();
             else if (sp.name == "rotation")
-                ae_ex.rotation.ResetInFromState();
+                ae_ex.Rotation.ResetInFromState();
             else if (sp.name == "scale")
-                ae_ex.scale.ResetInFromState();
+                ae_ex.Scale.ResetInFromState();
             else if (sp.name == "color")
-                ae_ex.color.ResetInFromState();
+                ae_ex.Color.ResetInFromState();
             else if (sp.name == "sequence")
-                ae_ex.sequence.ResetInFromState();
+                ae_ex.Sequence.ResetInFromState();
             else if (sp.name == "actions")
-                ae_ex.actions.ResetInFromState();
+                ae_ex.Actions.ResetInFromState();
             else if (sp.name == "material")
-                ae_ex.material.ResetInFromState();
+                ae_ex.Material.ResetInFromState();
             else Debug.LogError("Unknown property name: " + sp.name);
         }
     }
@@ -350,32 +350,32 @@ public abstract class AnimatedBehaviourEditor
                 switch (sp.name)
                 {
                     case "transformation":
-                        ae_ex.transformation.mainTransform = ae_ex.transform;
-                        ae_ex.transformation.InitTransform();
+                        ae_ex.Transformation.mainTransform = ae_ex.transform;
+                        ae_ex.Transformation.InitTransform();
                         break;
                     case "rotation":
-                        ae_ex.rotation.mainTransform = ae_ex.transform;
-                        ae_ex.rotation.InitTransform();
+                        ae_ex.Rotation.mainTransform = ae_ex.transform;
+                        ae_ex.Rotation.InitTransform();
                         break;
                     case "scale":
-                        ae_ex.scale.mainTransform = ae_ex.transform;
-                        ae_ex.scale.InitTransform();
+                        ae_ex.Scale.mainTransform = ae_ex.transform;
+                        ae_ex.Scale.InitTransform();
                         break;
                     case "color":
-                        ae_ex.color.mainTransform = ae_ex.transform;
-                        ae_ex.color.InitTransform();
+                        ae_ex.Color.mainTransform = ae_ex.transform;
+                        ae_ex.Color.InitTransform();
                         break;
                     case "sequence":
-                        ae_ex.sequence.mainTransform = ae_ex.transform;
-                        ae_ex.sequence.InitTransform();
+                        ae_ex.Sequence.mainTransform = ae_ex.transform;
+                        ae_ex.Sequence.InitTransform();
                         break;
                     case "actions":
-                        ae_ex.actions.mainTransform = ae_ex.transform;
-                        ae_ex.actions.InitTransform();
+                        ae_ex.Actions.mainTransform = ae_ex.transform;
+                        ae_ex.Actions.InitTransform();
                         break;
                     case "material":
-                        ae_ex.material.mainTransform = ae_ex.transform;
-                        ae_ex.material.InitTransform();
+                        ae_ex.Material.mainTransform = ae_ex.transform;
+                        ae_ex.Material.InitTransform();
                         break;
                     default:
                         Debug.LogError("Unknown property name: " + sp.name);

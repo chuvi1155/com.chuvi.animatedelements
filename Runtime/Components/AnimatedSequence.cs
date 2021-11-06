@@ -21,8 +21,6 @@ public class AnimatedSequence : AnimatedBehaviour
 
     public bool PlayRaw = false;
     public string RawFileName;
-    public bool UseFPS = true;
-    public float FPS = 25;
     byte[] rawData = null;
     Texture2D rawTex = null;
     Sprite rawSprite = null;
@@ -51,8 +49,6 @@ public class AnimatedSequence : AnimatedBehaviour
         if (frameAnimation == null || frameAnimation.Length == 0) return;
         if (image != null) image.sprite = frameAnimation[0];
         if (sprite != null) sprite.sprite = frameAnimation[0];
-        if(UseFPS)
-            AnimationTime = frameAnimation.Length / FPS;
     }
 
     public override void ResetInToState()
@@ -119,7 +115,7 @@ public class AnimatedSequence : AnimatedBehaviour
         if ((PlayRaw && rawData == null) || (!PlayRaw && (frameAnimation == null || frameAnimation.Length == 0))) return;
         if (PlayRaw)
         {
-            int num = (int)(curveValue * (countRawFrame));
+            int num = (int)(_time * (countRawFrame));
             num = Mathf.Clamp(num, 0, countRawFrame - 1);
             if (currentRawIndex != num)
             {
@@ -135,7 +131,7 @@ public class AnimatedSequence : AnimatedBehaviour
             }
             return;
         }
-        int n = (int)(curveValue * (frameAnimation.Length));
+        int n = (int)(_time * (frameAnimation.Length));
         n = Mathf.Clamp(n, 0, frameAnimation.Length - 1);
         if (Exists(SequenceTypes.Image) && image != null) image.sprite = frameAnimation[n];
         if (Exists(SequenceTypes.Sprite) && sprite != null) sprite.sprite = frameAnimation[n];
