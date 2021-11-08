@@ -21,6 +21,11 @@ public class AnimatedSequence : AnimatedBehaviour
 
     public bool PlayRaw = false;
     public string RawFileName;
+    public List<int> actionFrames = new List<int>();
+
+    public bool UseFPS = true;
+    public float FPS = 25;
+
     byte[] rawData = null;
     Texture2D rawTex = null;
     Sprite rawSprite = null;
@@ -28,7 +33,6 @@ public class AnimatedSequence : AnimatedBehaviour
     MemoryStream ms = null;
     BinaryReader reader = null;
     int currentRawIndex = -1;
-    public List<int> actionFrames = new List<int>();
     [SerializeField]
     ActionOnFrame onActionFrameEvent;
     public ActionOnFrame OnActionFrameEvent
@@ -61,6 +65,8 @@ public class AnimatedSequence : AnimatedBehaviour
         if (frameAnimation == null || frameAnimation.Length == 0) return;
         if (image != null) image.sprite = frameAnimation[0];
         if (sprite != null) sprite.sprite = frameAnimation[0];
+        if (UseFPS)
+            AnimationTime = frameAnimation.Length / FPS;
     }
 
     public override void ResetInToState()
@@ -76,6 +82,8 @@ public class AnimatedSequence : AnimatedBehaviour
         if (frameAnimation == null || frameAnimation.Length == 0) return;
         if (image != null) image.sprite = frameAnimation[frameAnimation.Length - 1];
         if (sprite != null) sprite.sprite = frameAnimation[frameAnimation.Length - 1];
+        if (UseFPS)
+            AnimationTime = frameAnimation.Length / FPS;
     }
 
     public void InitRawData(bool force = false)
@@ -127,7 +135,7 @@ public class AnimatedSequence : AnimatedBehaviour
         if ((PlayRaw && rawData == null) || (!PlayRaw && (frameAnimation == null || frameAnimation.Length == 0))) return;
         if (PlayRaw)
         {
-            int num = (int)(_time * (countRawFrame));
+            int num = (int)(curveValue * (countRawFrame));
             num = Mathf.Clamp(num, 0, countRawFrame - 1);
             if (currentRawIndex != num)
             {
@@ -150,7 +158,7 @@ public class AnimatedSequence : AnimatedBehaviour
             }
             return;
         }
-        int n = (int)(_time * (frameAnimation.Length));
+        int n = (int)(curveValue * (frameAnimation.Length));
         n = Mathf.Clamp(n, 0, frameAnimation.Length - 1);
 
         if (actionFrames.Count == 0)
