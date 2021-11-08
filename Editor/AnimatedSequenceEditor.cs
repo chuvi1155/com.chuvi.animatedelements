@@ -14,6 +14,9 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
     SerializedProperty PlayRaw;
     SerializedProperty RawFileName;
 
+    SerializedProperty actionFrames;
+    SerializedProperty onActionFrameEvent;
+
     protected override bool CanRevert { get { return false; } }
 
     public AnimatedSequenceEditor(AnimatedElementExEditor _ae) : base(_ae, "sequence")
@@ -31,6 +34,9 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
 
         PlayRaw = sp.FindPropertyRelative("PlayRaw");
         RawFileName = sp.FindPropertyRelative("RawFileName");
+
+        actionFrames = sp.FindPropertyRelative("actionFrames");
+        onActionFrameEvent = sp.FindPropertyRelative("onActionFrameEvent");
     }
 
     protected override void DrawBefore()
@@ -63,7 +69,10 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
 
             EditorGUILayout.PropertyField(PlayRaw, new GUIContent("PlayRaw"), true);
             EditorGUILayout.PropertyField(RawFileName, new GUIContent("RawFileName"), true);
-            
+
+            EditorGUILayout.PropertyField(actionFrames, new GUIContent("Action Frames"), true);
+            EditorGUILayout.PropertyField(onActionFrameEvent, new GUIContent("OnActionFrameEvent"), true);
+
 
             if (ae.Sequence.frameAnimation == null)
                 ae.Sequence.frameAnimation = new Sprite[0];
