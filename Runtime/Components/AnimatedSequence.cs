@@ -28,6 +28,18 @@ public class AnimatedSequence : AnimatedBehaviour
     MemoryStream ms = null;
     BinaryReader reader = null;
     int currentRawIndex = -1;
+    public List<int> actionFrames = new List<int>();
+    [SerializeField]
+    ActionOnFrame onActionFrameEvent;
+    public ActionOnFrame OnActionFrameEvent
+    {
+        get 
+        {
+            if (onActionFrameEvent == null)
+                onActionFrameEvent = new ActionOnFrame();
+            return onActionFrameEvent;
+        }
+    }
 
     public AnimatedSequence() : base()
     {
@@ -120,6 +132,13 @@ public class AnimatedSequence : AnimatedBehaviour
             if (currentRawIndex != num)
             {
                 currentRawIndex = num;
+                if (actionFrames.Count == 0)
+                    OnActionFrameEvent.Invoke(num);
+                else
+                {
+                    if (actionFrames.Contains(num))
+                        OnActionFrameEvent.Invoke(num);
+                }
                 if (reader.BaseStream.Position + 4 >= reader.BaseStream.Length)
                     reader.BaseStream.Position = 0;
                 int len = reader.ReadInt32(); // читаем сколько байт надо взять на кадр
@@ -133,6 +152,15 @@ public class AnimatedSequence : AnimatedBehaviour
         }
         int n = (int)(_time * (frameAnimation.Length));
         n = Mathf.Clamp(n, 0, frameAnimation.Length - 1);
+
+        if (actionFrames.Count == 0)
+            OnActionFrameEvent.Invoke(n);
+        else
+        {
+            if (actionFrames.Contains(n))
+                OnActionFrameEvent.Invoke(n);
+        }
+
         if (Exists(SequenceTypes.Image) && image != null) image.sprite = frameAnimation[n];
         if (Exists(SequenceTypes.Sprite) && sprite != null) sprite.sprite = frameAnimation[n];
     }
@@ -162,4 +190,8 @@ public class AnimatedSequence : AnimatedBehaviour
         reader = null;
         ms = null;
     }
+
+    [System.Serializable]
+    public class ActionOnFrame : UnityEngine.Events.UnityEvent<int>
+    { }
 }
