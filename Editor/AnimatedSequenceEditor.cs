@@ -14,6 +14,9 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
     SerializedProperty PlayRaw;
     SerializedProperty RawFileName;
 
+    SerializedProperty FPS;
+    SerializedProperty UseFPS;
+
     SerializedProperty actionFrames;
     SerializedProperty onActionFrameEvent;
 
@@ -34,6 +37,9 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
 
         PlayRaw = sp.FindPropertyRelative("PlayRaw");
         RawFileName = sp.FindPropertyRelative("RawFileName");
+
+        UseFPS = sp.FindPropertyRelative("UseFPS");
+        FPS = sp.FindPropertyRelative("FPS");
 
         actionFrames = sp.FindPropertyRelative("actionFrames");
         onActionFrameEvent = sp.FindPropertyRelative("onActionFrameEvent");
@@ -65,26 +71,42 @@ public class AnimatedSequenceEditor : AnimatedBehaviourEditor
             }
             EditorGUILayout.EndHorizontal();
             
-            EditorGUI.indentLevel++;
+            //EditorGUI.indentLevel++;
+
+            EditorGUILayout.PropertyField(UseFPS, new GUIContent("UseFPS"), true);
+            if (!UseFPS.hasMultipleDifferentValues)
+            {
+                if (UseFPS.boolValue)
+                {
+                    AnimationTime = null;
+                    EditorGUILayout.PropertyField(FPS, new GUIContent("FPS"), true);
+                }
+                else
+                    AnimationTime = sp.FindPropertyRelative("AnimationTime");
+            }
 
             EditorGUILayout.PropertyField(PlayRaw, new GUIContent("PlayRaw"), true);
             EditorGUILayout.PropertyField(RawFileName, new GUIContent("RawFileName"), true);
-
+            EditorGUI.indentLevel++;
             EditorGUILayout.PropertyField(actionFrames, new GUIContent("Action Frames"), true);
+            EditorGUI.indentLevel--;
             EditorGUILayout.PropertyField(onActionFrameEvent, new GUIContent("OnActionFrameEvent"), true);
 
+            //EditorGUI.indentLevel--;
 
             if (ae.Sequence.frameAnimation == null)
                 ae.Sequence.frameAnimation = new Sprite[0];
             if (!frameAnimation.hasMultipleDifferentValues)
                 EditorGUILayout.HelpBox("Frames count:" + ae.Sequence.frameAnimation.Length, MessageType.None);
+            EditorGUI.indentLevel++;
             EditorGUILayout.PropertyField(frameAnimation, new GUIContent("Frames"), true);
+            EditorGUI.indentLevel--;
             if (GUILayout.Button(new GUIContent("Get from selected"), EditorStyles.miniButton))
             {
                 SetFramesAnimation wnd = EditorWindow.GetWindow<SetFramesAnimation>(true);
                 wnd.Target = ae;
             }
-            EditorGUI.indentLevel--;
+            //EditorGUI.indentLevel--;
         }
         EditorGUILayout.EndVertical();
         EditorGUILayout.Space();
