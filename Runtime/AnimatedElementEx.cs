@@ -224,7 +224,8 @@ public class AnimatedElementEx : MonoBehaviour
 
     private void OnEnable()
     {
-        Play();
+		if(!Pause)
+			Play();
     }
     
     void InitFields()
@@ -266,6 +267,7 @@ public class AnimatedElementEx : MonoBehaviour
     public void Play()
     {
         InitFields();
+		Pause = false;
         OnEnableEvent.Invoke();
         t = 0;
         isStartEventRun = false;
