@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System;
 
@@ -6,6 +6,8 @@ public class AnimatedRotationEditor : AnimatedBehaviourEditor
 {
     SerializedProperty to_rotation;
     SerializedProperty from_rotation;
+    SerializedProperty from_current;
+    SerializedProperty UseRandomPositions;
 
     public AnimatedRotationEditor(AnimatedElementExEditor _ae) : base(_ae, "rotation")
     {
@@ -17,6 +19,8 @@ public class AnimatedRotationEditor : AnimatedBehaviourEditor
 
         to_rotation = sp.FindPropertyRelative("to_rotation");
         from_rotation = sp.FindPropertyRelative("from_rotation");
+        UseRandomPositions = sp.FindPropertyRelative("UseRandomPositions");
+        from_current = sp.FindPropertyRelative("FromCurrentPosition");
     }
 
     public override void RevertStates()
@@ -38,8 +42,13 @@ public class AnimatedRotationEditor : AnimatedBehaviourEditor
     protected override void DrawBefore()
     {
         EditorGUILayout.BeginVertical("box");
+        EditorGUILayout.PropertyField(from_current);
         EditorGUILayout.BeginHorizontal();
+        bool en = GUI.enabled;
+        GUI.enabled = from_current.enumValueIndex == 0;
         EditorGUILayout.PropertyField(from_rotation, new GUIContent("From"));
+        GUI.enabled = en;
+        //EditorGUILayout.PropertyField(from_rotation, new GUIContent("From"));
         ResetToZero(false, OnResetToZero);
         ResetToOne(false, OnResetToOne);
         ResetToCurrent(false, OnResetToCurrent);
@@ -50,6 +59,7 @@ public class AnimatedRotationEditor : AnimatedBehaviourEditor
         ResetToOne(true, OnResetToOne);
         ResetToCurrent(true, OnResetToCurrent);
         EditorGUILayout.EndHorizontal();
+        EditorGUILayout.PropertyField(UseRandomPositions, new GUIContent("Use random positions"));
         EditorGUILayout.EndVertical();
         EditorGUILayout.Space();
     }
