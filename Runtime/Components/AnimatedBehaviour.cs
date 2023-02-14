@@ -46,6 +46,7 @@ public abstract class AnimatedBehaviour
     public bool Used = false;
     public float AnimationTime = 1;
     public bool UseRandomTime = false;
+    public float MinRandomTime = 0;
     public float MaxRandomTime = 1;
     public bool IsRepeat = false;
     public float TimeWaitRepeate = 0;
@@ -136,7 +137,7 @@ public abstract class AnimatedBehaviour
                             TimeWaitRepeate = Random.Range(0, MaxRandomTimeWaitRepeate);
                         t = 0;
                         if (UseRandomTime)
-                            AnimationTime = Random.Range(0, MaxRandomTime);
+                            AnimationTime = Random.Range(MinRandomTime, MaxRandomTime);
 
                         float ttt = GetTime(Mathf.Repeat(t, AnimationTime), AnimationTime);
                         CurveValue = curve.Evaluate(ttt);
