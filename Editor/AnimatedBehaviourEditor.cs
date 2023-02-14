@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 
 public abstract class AnimatedBehaviourEditor
@@ -9,6 +9,7 @@ public abstract class AnimatedBehaviourEditor
     public SerializedProperty Used;
     protected SerializedProperty AnimationTime;
     protected SerializedProperty UseRandomTime;
+    protected SerializedProperty MinRandomTime;
     protected SerializedProperty MaxRandomTime;
     protected SerializedProperty IsRepeat;
     protected SerializedProperty TimeWaitRepeate;
@@ -28,6 +29,7 @@ public abstract class AnimatedBehaviourEditor
     static GUIContent useRandTimeWaitRepeate_cont = new GUIContent("Use random time wait repeate");
     static GUIContent maxRandTomeWaitRepeate_cont = new GUIContent("Max random time wait repeate");
     static GUIContent useRandTime_cont = new GUIContent("Use random time");
+    static GUIContent minRandTime_cont = new GUIContent("Min random time");
     static GUIContent maxRandTime_cont = new GUIContent("Max random time");
     static GUIContent startAnim_cont = new GUIContent("StartAnimation");
     static GUIContent onAnim_cont = new GUIContent("OnAnimation");
@@ -53,6 +55,7 @@ public abstract class AnimatedBehaviourEditor
         Used = sp.FindPropertyRelative("Used");
         AnimationTime = sp.FindPropertyRelative("AnimationTime");
         UseRandomTime = sp.FindPropertyRelative("UseRandomTime");
+        MinRandomTime = sp.FindPropertyRelative("MinRandomTime");
         MaxRandomTime = sp.FindPropertyRelative("MaxRandomTime");
         IsRepeat = sp.FindPropertyRelative("IsRepeat");
         TimeWaitRepeate = sp.FindPropertyRelative("TimeWaitRepeate");
@@ -219,6 +222,12 @@ public abstract class AnimatedBehaviourEditor
                     EditorGUILayout.PropertyField(UseRandomTime, useRandTime_cont);
                     if (!UseRandomTime.hasMultipleDifferentValues && UseRandomTime.boolValue)
                     {
+                        if (MinRandomTime != null)
+                        {
+                            EditorGUI.indentLevel++;
+                            EditorGUILayout.PropertyField(MinRandomTime, minRandTime_cont);
+                            EditorGUI.indentLevel--;
+                        }
                         if (MaxRandomTime != null)
                         {
                             EditorGUI.indentLevel++;
