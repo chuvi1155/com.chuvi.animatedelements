@@ -82,7 +82,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
 
             if (Exists(AnimatedAction.ActionTypes.ClampedAction))
             {
-                EditorGUILayout.HelpBox("The event is triggered every update and returns a value from 0 to 1, where 1 - is the normalized '<b>AnimationTime</b>' field.", MessageType.Info);
+                //EditorGUILayout.HelpBox("The event is triggered every update and returns a value from 0 to 1, where 1 - is the normalized '<b>AnimationTime</b>' field.", MessageType.Info);
 
                 ProgressBar(ae.Actions.AnimatedTimeTick, ae.Actions.AnimationTime);
 
@@ -94,7 +94,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
             {
                 if (Exists(AnimatedAction.ActionTypes.ClampedAction))
                     EditorGUILayout.Space();
-                EditorGUILayout.HelpBox("The event is triggered every update and returns a inverted value from 1 to 0, where 0 - is the normalized '<b>AnimationTime</b>' field.", MessageType.Info);
+                //EditorGUILayout.HelpBox("The event is triggered every update and returns a inverted value from 1 to 0, where 0 - is the normalized '<b>AnimationTime</b>' field.", MessageType.Info);
 
                 ProgressBar(ae.Actions.AnimationTime - ae.Actions.AnimatedTimeTick, ae.Actions.AnimationTime);
 
@@ -108,7 +108,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
 
                 if (Exists(AnimatedAction.ActionTypes.InvertClampedAction) || Exists(AnimatedAction.ActionTypes.ClampedAction))
                     EditorGUILayout.Space();
-                EditorGUILayout.HelpBox("The event is triggered every update and returns a value from '<b>Curve</b>' field", MessageType.Info);
+                //EditorGUILayout.HelpBox("The event is triggered every update and returns a value from '<b>Curve</b>' field", MessageType.Info);
                 
                 ProgressBar(ae.Actions.CurveValue, ae.Actions.GetMinCurveValue, ae.Actions.GetMaxCurveValue);
 
@@ -121,7 +121,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
 				EditorGUILayout.PropertyField(AsIntValue, new GUIContent("AsIntValue?"));
                 if(!IsOneSelected(AnimatedAction.ActionTypes.CustomValueAction))
                     EditorGUILayout.Space();
-                EditorGUILayout.HelpBox("The event is triggered every update and returns the value set in field '<b>Max value</b>'.", MessageType.Info);
+                //EditorGUILayout.HelpBox("The event is triggered every update and returns the value set in field '<b>Max value</b>'.", MessageType.Info);
                 EditorGUILayout.BeginVertical("box");
                 EditorGUILayout.PropertyField(MaxCustomValue, new GUIContent("Max value"));
                 EditorGUILayout.PropertyField(CustomActionReversed, new GUIContent("Reversed value", "Return inverted value?"));
@@ -138,7 +138,7 @@ public class AnimatedActionsEditor : AnimatedBehaviourEditor
                 EditorGUILayout.PropertyField(AsIntValue, new GUIContent("AsIntValue?"));
                 if (!IsOneSelected(AnimatedAction.ActionTypes.CustomValueRangeAction))
                     EditorGUILayout.Space();
-                EditorGUILayout.HelpBox("The event is triggered every update and returns the value from range '<b>From value</b>' and '<b>To value</b>'.", MessageType.Info);
+                //EditorGUILayout.HelpBox("The event is triggered every update and returns the value from range '<b>From value</b>' and '<b>To value</b>'.", MessageType.Info);
                 EditorGUILayout.BeginVertical("box");
                 EditorGUILayout.PropertyField(FromCustomRangeValue, new GUIContent("From value"));
                 EditorGUILayout.PropertyField(ToCustomRangeValue, new GUIContent("To value"));
