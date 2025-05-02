@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +25,7 @@ public class AnimatedMaterial : AnimatedBehaviour
     public Vector2 FromTilingValue;
     public Vector2 ToTilingValue;
     public MaterialAnimationType matAnimType = MaterialAnimationType.MaterialOffset;
+
     [SerializeField]
     public MaterialAnimation[] materialAnimations;
 
@@ -64,7 +65,7 @@ public class AnimatedMaterial : AnimatedBehaviour
     {
 		if (mainTransform == null) return;
 		if(material == null)
-			material = mainTransform.GetComponent<Renderer>().material;
+			material = mainTransform.GetComponentInChildren<Renderer>().material;
 
 		if (material == null) return;
 		if (materialAnimations != null && materialAnimations.Length > 0)
