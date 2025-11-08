@@ -1,4 +1,4 @@
-﻿
+
 [System.Flags]
 public enum AnimatedType
 {
@@ -20,4 +20,9 @@ public enum FromCurrentPosition
     None,
     Local,
     World
+}
+public enum FromCurrentSize
+{
+    None,
+    Use
 }
