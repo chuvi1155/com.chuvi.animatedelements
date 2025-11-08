@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 using UnityEngine.UI;
@@ -14,6 +14,7 @@ public class AnimatedColor : AnimatedBehaviour
         CanvasGroup = 1 << 2,
         Material = 1 << 3,
     }
+    public bool FromCurrentColor = false;
     public Color from_color = Color.white;
     public Color to_color = Color.white;
     public float from_alpha
@@ -44,7 +45,28 @@ public class AnimatedColor : AnimatedBehaviour
         if (!Used) return;
         t = 0;
         onEnded = false;
-        InitTransform();
+        InitTransform(); 
+        if(FromCurrentColor)
+        {
+            if (Exists(ColorAnimation.Image) && coloredImage == null)
+            {
+                coloredImage = mainTransform.GetComponent<Graphic>();
+                if (coloredImage != null)
+                    from_color = coloredImage.color;
+            }
+            if (Exists(ColorAnimation.Effect) && coloredEffect == null)
+            {
+                coloredEffect = mainTransform.GetComponent<Shadow>();
+                if (coloredEffect != null)
+                    from_color = coloredEffect.effectColor;
+            }
+            if (Exists(ColorAnimation.CanvasGroup) && coloredCanvasGroup == null)
+            {
+                coloredCanvasGroup = mainTransform.GetComponent<CanvasGroup>();
+                if (coloredCanvasGroup != null)
+                    from_color.a = coloredCanvasGroup.alpha;
+            }
+        }
         OnAction(0, curve.Evaluate(0));
     }
 
