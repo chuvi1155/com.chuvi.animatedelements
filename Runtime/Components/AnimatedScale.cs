@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -10,6 +10,7 @@ public class AnimatedScale : AnimatedBehaviour
     public Vector3 from_scale = Vector3.one;
     public Vector2 to_size = Vector2.one;
     public Vector2 from_size = Vector2.one;
+    public FromCurrentSize FromCurrentSize = FromCurrentSize.None;
 
     public AnimatedScale() : base()
     {
@@ -48,7 +49,8 @@ public class AnimatedScale : AnimatedBehaviour
         t = 0;
         onEnded = false;
         InitTransform();
-
+        if (FromCurrentSize == FromCurrentSize.Use)
+            from_scale = UseSize ? rtr.sizeDelta : mainTransform.localScale;
         OnAction(0, curve.Evaluate(0));
     }
 
