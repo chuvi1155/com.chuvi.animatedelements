@@ -50,7 +50,12 @@ public class AnimatedScale : AnimatedBehaviour
         onEnded = false;
         InitTransform();
         if (FromCurrentSize == FromCurrentSize.Use)
-            from_scale = UseSize ? rtr.sizeDelta : mainTransform.localScale;
+        {
+            if(UseSize)
+                from_size = rtr.sizeDelta;
+            else
+                from_scale = mainTransform.localScale;
+        }
         OnAction(0, curve.Evaluate(0));
     }
 
