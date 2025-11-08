@@ -1,7 +1,7 @@
 {
 	"name": "com.chuvi.animatedelements",
 	"displayName": "AnimatedElements",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"unity": "2018.1",
 	"description": "Simple animation of objects in the scene",
 	"dependencies": {
@@ -12,3 +12,4 @@
     "url": ""
   }
 }
+
