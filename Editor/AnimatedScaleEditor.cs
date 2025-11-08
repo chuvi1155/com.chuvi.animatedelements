@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System;
 
@@ -10,6 +10,7 @@ public class AnimatedScaleEditor : AnimatedBehaviourEditor
     SerializedProperty to_size;
     SerializedProperty from_size;
     bool canEditSize = true;
+    SerializedProperty from_current;
 
     public AnimatedScaleEditor(AnimatedElementExEditor _ae) : base(_ae, "scale")
     {
@@ -24,6 +25,7 @@ public class AnimatedScaleEditor : AnimatedBehaviourEditor
         from_scale = sp.FindPropertyRelative("from_scale");
         to_size = sp.FindPropertyRelative("to_size");
         from_size = sp.FindPropertyRelative("from_size");
+        from_current = sp.FindPropertyRelative("FromCurrentSize");
     }
 
     protected override void DrawBefore()
@@ -51,8 +53,10 @@ public class AnimatedScaleEditor : AnimatedBehaviourEditor
             canEditSize = false;
             EditorGUILayout.HelpBox("Set field 'UseSize' can edit only one selected object", MessageType.Warning);
         }
+        EditorGUILayout.PropertyField(from_current);
 
         EditorGUILayout.BeginHorizontal();
+        GUI.enabled = from_current.enumValueIndex == 0;
         if (canEditSize && UseSize.boolValue)
             EditorGUILayout.PropertyField(from_size, new GUIContent("From"));
         else EditorGUILayout.PropertyField(from_scale, new GUIContent("From"));
