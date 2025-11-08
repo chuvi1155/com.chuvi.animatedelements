@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System;
 using UnityEngine.UI;
@@ -12,6 +12,7 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
     SerializedProperty coloredEffect;
     SerializedProperty coloredCanvasGroup;
     SerializedProperty material;
+    SerializedProperty from_current;
 
     public AnimatedColorEditor(AnimatedElementExEditor _ae) : base(_ae, "color")
     {
@@ -28,6 +29,7 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
         coloredEffect = sp.FindPropertyRelative("coloredEffect");
         coloredCanvasGroup = sp.FindPropertyRelative("coloredCanvasGroup");
         material = sp.FindPropertyRelative("material");
+        from_current = sp.FindPropertyRelative("FromCurrentColor");
     }
 
     public override void RevertStates()
@@ -82,15 +84,19 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
             }
             if (clicked)
                 Set(anim_type);
+
             EditorGUILayout.EndHorizontal();
 
             //var val = EditorGUILayout.MaskField("Animation types", colorAnimationType.intValue, colorAnimationType.enumNames);
             //if(val != colorAnimationType.intValue)
             //    colorAnimationType.intValue = val;
+            bool en = GUI.enabled;
+            EditorGUILayout.PropertyField(from_current);
 
             if (colorAnimationType.intValue != 0)
             {
                 EditorGUILayout.BeginHorizontal();
+                GUI.enabled = !from_current.boolValue;
                 bool smv = EditorGUI.showMixedValue;
                 if (Exists(AnimatedColor.ColorAnimation.CanvasGroup) && (!Exists(AnimatedColor.ColorAnimation.Image) || !Exists(AnimatedColor.ColorAnimation.Effect)))
                 {
@@ -100,6 +106,8 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
                     EditorGUI.showMixedValue = smv;
                 }
                 else EditorGUILayout.PropertyField(from_color, new GUIContent("From"));
+                GUI.enabled = en;
+                ResetToCurrent(3, OnResetToCurrent);
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.BeginHorizontal();
                 if (Exists(AnimatedColor.ColorAnimation.CanvasGroup) && (!Exists(AnimatedColor.ColorAnimation.Image) || !Exists(AnimatedColor.ColorAnimation.Effect)))
@@ -110,6 +118,8 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
                     EditorGUI.showMixedValue = smv;
                 }
                 else EditorGUILayout.PropertyField(to_color, new GUIContent("To"));
+
+                ResetToCurrent(3, OnResetToCurrent);
                 EditorGUILayout.EndHorizontal();
             }
 
@@ -211,6 +221,18 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
                     ae_ex.Color.coloredCanvasGroup = img;
                 }
             }
+        }
+        else if (componentNum == 3) // from color
+        {
+            if (ae_ex.Color.coloredImage == null) // try get image
+                OnResetToCurrent(componentNum, 0);
+            if (ae_ex.Color.coloredImage == null && ae_ex.Color.coloredCanvasGroup == null) // try get canvas group
+                OnResetToCurrent(componentNum, 2);
+
+            if (ae_ex.Color.coloredImage != null)
+                ae_ex.Color.from_color = ae_ex.Color.coloredImage.color;
+            else if (ae_ex.Color.coloredCanvasGroup != null)
+                ae_ex.Color.from_alpha = ae_ex.Color.coloredCanvasGroup.alpha;
         }
     }
 
