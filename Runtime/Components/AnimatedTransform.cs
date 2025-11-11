@@ -45,6 +45,8 @@ public class AnimatedTransform : AnimatedBehaviour
             from_transformPos = mainTransform.position;
         else if (FromCurrentPosition == FromCurrentPosition.Local)
             from_transformPos = mainTransform.localPosition;
+        else if (FromCurrentPosition == FromCurrentPosition.Local2D && rtr != null)
+            from_transformPos = rtr.anchoredPosition;
         OnAction(0, curve.Evaluate(0));
     }
 
@@ -109,3 +111,4 @@ public class AnimatedTransform : AnimatedBehaviour
         }
     }
 }
+
