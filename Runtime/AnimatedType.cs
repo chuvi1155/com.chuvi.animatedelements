@@ -16,10 +16,11 @@ public enum ColorAnimation
     CanvasGroup = 1 << 2,
 }
 public enum FromCurrentPosition
-{ 
+{
     None,
     Local,
-    World
+    World,
+    Local2D
 }
 public enum FromCurrentSize
 {
