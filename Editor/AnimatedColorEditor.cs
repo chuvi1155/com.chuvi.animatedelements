@@ -12,6 +12,7 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
     SerializedProperty coloredEffect;
     SerializedProperty coloredCanvasGroup;
     SerializedProperty material;
+    SerializedProperty spriteRend;
     SerializedProperty from_current;
 
     public AnimatedColorEditor(AnimatedElementExEditor _ae) : base(_ae, "color")
@@ -29,6 +30,7 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
         coloredEffect = sp.FindPropertyRelative("coloredEffect");
         coloredCanvasGroup = sp.FindPropertyRelative("coloredCanvasGroup");
         material = sp.FindPropertyRelative("material");
+        spriteRend = sp.FindPropertyRelative("spriteRend");
         from_current = sp.FindPropertyRelative("FromCurrentColor");
     }
 
@@ -60,6 +62,10 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
                     anim_type |= (int)AnimatedColor.ColorAnimation.Image;
                 if (Exists(AnimatedColor.ColorAnimation.Effect))
                     anim_type |= (int)AnimatedColor.ColorAnimation.Effect;
+                if (Exists(AnimatedColor.ColorAnimation.Material))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.Material;
+                if (Exists(AnimatedColor.ColorAnimation.SpriteRenderer))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.SpriteRenderer;
                 clicked = true;
             }
             if (MidButton("Image", Exists(AnimatedColor.ColorAnimation.Image)))
@@ -70,6 +76,10 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
                     anim_type |= (int)AnimatedColor.ColorAnimation.Image;
                 if (Exists(AnimatedColor.ColorAnimation.Effect))
                     anim_type |= (int)AnimatedColor.ColorAnimation.Effect;
+                if (Exists(AnimatedColor.ColorAnimation.Material))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.Material;
+                if (Exists(AnimatedColor.ColorAnimation.SpriteRenderer))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.SpriteRenderer;
                 clicked = true;
             }
             if (RightButton("Effect", Exists(AnimatedColor.ColorAnimation.Effect)))
@@ -80,16 +90,44 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
                     anim_type |= (int)AnimatedColor.ColorAnimation.Image;
                 if (!Exists(AnimatedColor.ColorAnimation.Effect))
                     anim_type |= (int)AnimatedColor.ColorAnimation.Effect;
+                if (Exists(AnimatedColor.ColorAnimation.Material))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.Material;
+                if (Exists(AnimatedColor.ColorAnimation.SpriteRenderer))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.SpriteRenderer;
+                clicked = true;
+            }
+            if (RightButton("Material", Exists(AnimatedColor.ColorAnimation.Material)))
+            {
+                if (Exists(AnimatedColor.ColorAnimation.CanvasGroup))
+                    anim_type = (int)AnimatedColor.ColorAnimation.CanvasGroup;
+                if (Exists(AnimatedColor.ColorAnimation.Image))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.Image;
+                if (Exists(AnimatedColor.ColorAnimation.Effect))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.Effect;
+                if (!Exists(AnimatedColor.ColorAnimation.Material))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.Material;
+                if (Exists(AnimatedColor.ColorAnimation.SpriteRenderer))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.SpriteRenderer;
+                clicked = true;
+            }
+            if (RightButton("SpriteRenderer", Exists(AnimatedColor.ColorAnimation.SpriteRenderer)))
+            {
+                if (Exists(AnimatedColor.ColorAnimation.CanvasGroup))
+                    anim_type = (int)AnimatedColor.ColorAnimation.CanvasGroup;
+                if (Exists(AnimatedColor.ColorAnimation.Image))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.Image;
+                if (Exists(AnimatedColor.ColorAnimation.Effect))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.Effect;
+                if (Exists(AnimatedColor.ColorAnimation.Material))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.Material;
+                if (!Exists(AnimatedColor.ColorAnimation.SpriteRenderer))
+                    anim_type |= (int)AnimatedColor.ColorAnimation.SpriteRenderer;
                 clicked = true;
             }
             if (clicked)
                 Set(anim_type);
-
             EditorGUILayout.EndHorizontal();
 
-            //var val = EditorGUILayout.MaskField("Animation types", colorAnimationType.intValue, colorAnimationType.enumNames);
-            //if(val != colorAnimationType.intValue)
-            //    colorAnimationType.intValue = val;
             bool en = GUI.enabled;
             EditorGUILayout.PropertyField(from_current);
 
@@ -118,7 +156,6 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
                     EditorGUI.showMixedValue = smv;
                 }
                 else EditorGUILayout.PropertyField(to_color, new GUIContent("To"));
-
                 ResetToCurrent(3, OnResetToCurrent);
                 EditorGUILayout.EndHorizontal();
             }
@@ -148,6 +185,13 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
             {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PropertyField(material, new GUIContent("Material"));
+                EditorGUILayout.EndHorizontal();
+            }
+            if (Exists(AnimatedColor.ColorAnimation.SpriteRenderer))
+            {
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.PropertyField(spriteRend, new GUIContent("SpriteRenderer"));
+                ResetToCurrent(4, OnResetToCurrent);
                 EditorGUILayout.EndHorizontal();
             }
         }
@@ -233,6 +277,27 @@ public class AnimatedColorEditor : AnimatedBehaviourEditor
                 ae_ex.Color.from_color = ae_ex.Color.coloredImage.color;
             else if (ae_ex.Color.coloredCanvasGroup != null)
                 ae_ex.Color.from_alpha = ae_ex.Color.coloredCanvasGroup.alpha;
+        }
+        else if (componentNum == 4) // SpriteRenderer
+        {
+            if (ae_ex.Color.mainTransform != null)
+            {
+                SpriteRenderer img = ae_ex.Color.mainTransform.GetComponent<SpriteRenderer>();
+                ae_ex.Color.spriteRend = img;
+            }
+            else
+            {
+                if (ae_ex.commonTransform != null)
+                {
+                    SpriteRenderer img = ae_ex.commonTransform.GetComponent<SpriteRenderer>();
+                    ae_ex.Color.spriteRend = img;
+                }
+                else
+                {
+                    SpriteRenderer img = ae_ex.GetComponent<SpriteRenderer>();
+                    ae_ex.Color.spriteRend = img;
+                }
+            }
         }
     }
 
