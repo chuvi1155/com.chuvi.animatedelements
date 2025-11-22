@@ -13,6 +13,7 @@ public class AnimatedColor : AnimatedBehaviour
         Effect = 1 << 1,
         CanvasGroup = 1 << 2,
         Material = 1 << 3,
+        SpriteRenderer = 1 << 4,
     }
     public bool FromCurrentColor = false;
     public Color from_color = Color.white;
@@ -31,6 +32,7 @@ public class AnimatedColor : AnimatedBehaviour
     public Graphic coloredImage;
     public Shadow coloredEffect;
     public CanvasGroup coloredCanvasGroup;
+    public SpriteRenderer spriteRend;
     public Material material;
 
     public AnimatedColor() : base()
@@ -45,8 +47,8 @@ public class AnimatedColor : AnimatedBehaviour
         if (!Used) return;
         t = 0;
         onEnded = false;
-        InitTransform(); 
-        if(FromCurrentColor)
+        InitTransform();
+        if (FromCurrentColor)
         {
             if (Exists(ColorAnimation.Image) && coloredImage == null)
             {
@@ -65,6 +67,12 @@ public class AnimatedColor : AnimatedBehaviour
                 coloredCanvasGroup = mainTransform.GetComponent<CanvasGroup>();
                 if (coloredCanvasGroup != null)
                     from_color.a = coloredCanvasGroup.alpha;
+            }
+            if (Exists(ColorAnimation.SpriteRenderer) && spriteRend == null)
+            {
+                spriteRend = mainTransform.GetComponent<SpriteRenderer>();
+                if (spriteRend != null)
+                    from_color.a = spriteRend.color.a;
             }
         }
         OnAction(0, curve.Evaluate(0));
@@ -97,13 +105,16 @@ public class AnimatedColor : AnimatedBehaviour
             coloredEffect = mainTransform.GetComponent<Shadow>();
         if (Exists(ColorAnimation.CanvasGroup) && coloredCanvasGroup == null)
             coloredCanvasGroup = mainTransform.GetComponent<CanvasGroup>();
-        if (coloredImage == null && coloredEffect == null && coloredCanvasGroup == null && material == null) return;
+        if (Exists(ColorAnimation.SpriteRenderer) && coloredCanvasGroup == null)
+            spriteRend = mainTransform.GetComponent<SpriteRenderer>();
+        if (coloredImage == null && coloredEffect == null && coloredCanvasGroup == null && material == null && spriteRend == null) return;
 
         Color newCol = Color.Lerp(from_color, to_color, curveValue);
         if (Exists(ColorAnimation.Image) && coloredImage != null) coloredImage.color = newCol;
         if (Exists(ColorAnimation.Effect) && coloredEffect != null) coloredEffect.effectColor = newCol;
         if (Exists(ColorAnimation.CanvasGroup) && coloredCanvasGroup != null) coloredCanvasGroup.alpha = newCol.a;
         if (Exists(ColorAnimation.Material) && material != null) material.color = newCol;
+        if (Exists(ColorAnimation.SpriteRenderer) && spriteRend != null) spriteRend.color = newCol;
     }
 
     protected override void SetFrom(object from)
